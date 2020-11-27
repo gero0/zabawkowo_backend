@@ -1,0 +1,21 @@
+extends layout
+
+block title
+  title= 'INDEX'
+
+block content
+  main
+    aside
+      p Wyszukiwarka?
+      p Kategorie?
+    section(id='offers')
+      each toy in toy_list
+        div(class='offer')
+          - var img = toy.Photo;
+          img(src=img)
+          div(class='offer-desc')
+            h1 #{toy.Name}
+            p #{toy.Description}
+          div(class='offer-right-section')
+            p Cena: #{toy.Price}zł
+            a(href='/' class='display-button') Wyświetl
