@@ -1,8 +1,8 @@
 import { TOKEN_SECRET } from "./secret";
 const jwt = require("jsonwebtoken");
 
-export function generateToken(email) {
-  return jwt.sign({email: email}, TOKEN_SECRET, { expiresIn: "30 days" });
+export function generateToken(username) {
+  return jwt.sign({username: username}, TOKEN_SECRET, { expiresIn: "30 days" });
 }
 
 export function authenticateToken(req, res, next) {

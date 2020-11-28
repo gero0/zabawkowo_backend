@@ -66,7 +66,7 @@ export const create_user = async (req, res, next) => {
       last_name: data.last_name,
     }).save();
 
-    const access_token = generateToken(data.email);
+    const access_token = generateToken(data.username);
 
     res.status(201).json({ status: "OK", token: access_token });
   } catch (err) {
