@@ -20,7 +20,7 @@ export const get_user_basic = async (req, res, next) => {
 };
 
 export const token_test = async (req, res) => {
-  console.log(req.data);
+  console.log(req.auth_data);
   res.json({ status: "OK" });
 };
 
@@ -74,4 +74,16 @@ export const create_user = async (req, res, next) => {
     res.status(500).json({ status: "ERROR_CREATING_USER" });
     return;
   }
+};
+
+export const delete_user = async (req, res) => {
+  try {
+    let user_to_remove = await User.findOne({
+      where: { username: req.auth_data.username },
+    });
+    await User.remove(user_to_remove);
+  } catch {
+    res.status(401).json({ status: "User no longer exists" });
+  }
+  res.status(201).json({ status: "OK" });
 };

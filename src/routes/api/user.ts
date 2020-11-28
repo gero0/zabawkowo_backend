@@ -15,4 +15,6 @@ router.post("/create", userController.create_user);
 
 router.get("/test", authenticateToken, userController.token_test);
 
+router.get("/delete", authenticateToken, userController.delete_user);
+
 export default router;
