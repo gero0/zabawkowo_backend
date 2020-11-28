@@ -6,8 +6,8 @@ export class Chat extends BaseEntity{
   id: number;
 
   @Column({type: 'int', nullable:false})
-  User_id_1: number;
+  user_id_1: number;
 
   @Column({type: 'int', nullable:false})
-  User_id_2: number;
+  user_id_2: number;
 }

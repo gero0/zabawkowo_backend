@@ -9,13 +9,16 @@ block content
       p Wyszukiwarka?
       p Kategorie?
     section(id='offers')
-      each toy in toy_list
+      each offer in list_offers
+        - var img = offer.photo;
+        - var url = '/offer/' + offer.id;
         div(class='offer')
-          - var img = toy.Photo;
-          img(src=img)
+          a(href=url)
+            img(src=img)
           div(class='offer-desc')
-            h1 #{toy.Name}
-            p #{toy.Description}
+            a(href=url)
+              h1 #{offer.name}
+            p #{offer.description}
           div(class='offer-right-section')
-            p Cena: #{toy.Price}zł
-            a(href='/' class='display-button') Wyświetl
+            p Cena: #{offer.price}zł
+

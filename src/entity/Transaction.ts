@@ -12,20 +12,20 @@ export class Transaction extends BaseEntity{
   id: number;
 
   @Column({type: 'int', nullable:false})
-  User_id_seller: number;
+  user_id_seller: number;
 
   @Column({type: 'int', nullable:false})
-  User_id_buyer: number;
+  user_id_buyer: number;
 
   @Column({type: 'int', nullable:false})
-  Toy_id: number;
+  toy_id: number;
 
   @Column({type: 'date', nullable:false})
-  Transaction_started_date: Date;
+  transaction_started_date: Date;
 
   @Column({type: 'date', nullable:true})
-  Transaction_finished_date: Date;
+  transaction_finished_date: Date;
 
   @Column({type: 'enum', enum:Payment_Status, nullable:false})
-  Payment_status: string;
+  payment_status: string;
 }

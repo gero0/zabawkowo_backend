@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+a:hover{
+  text-decoration: underline;
+}
+
 header {
   display: flex;
   margin: 0 auto;
@@ -91,26 +95,13 @@ aside {
 }
 
 .offer-desc{
+  display: inline;
   margin-right: 40px;
+  overflow-wrap: anywhere;
 }
 
 .offer-right-section{
   margin-left: auto;
   margin-right: 20px;
-}
-
-.offer-right-section p{
-  display: block;
-  height: 50px;
-}
-
-.display-button{
-  display:block;
-  padding: 10px;
-  width:100px;
-  background-color: white;
-  border-radius: 5px;
-  text-align: center;
-  margin-bottom: 20px;
-  margin-top: 60px;
+  min-width:100px;
 }

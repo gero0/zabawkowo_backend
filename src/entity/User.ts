@@ -6,14 +6,8 @@ export class User extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({type: 'varchar', nullable: false})
-  First_name: string;
-
-  @Column({type: 'varchar', nullable: false})
-  Last_Name: string;
-
-  @Column({type: 'varchar', nullable: false})
-  Creation_date: Date;
+  @Column({type: 'varchar', nullable: false, unique: true})
+  username: string;
 
   @Column({type: 'varchar', nullable: false, unique: true})
   email: string;
@@ -21,12 +15,18 @@ export class User extends BaseEntity{
   @Column({type: 'varchar', nullable: false})
   password: string;
 
-  @Column({type: 'varchar', nullable: false})
-  Phone_number: string;
+  @Column({type: 'varchar', nullable: false, default: () => 'CURRENT_TIMESTAMP'})
+  creation_date: Date;
 
   @Column({type: 'varchar', nullable: false})
-  Address_id: number;
+  first_name: string;
 
-  @OneToMany(() => Toy, (toy) => toy.User_id)
+  @Column({type: 'varchar', nullable: false})
+  last_name: string;
+
+  @Column({type: 'varchar', nullable: true})
+  phone_number: string;
+
+  @OneToMany(() => Toy, (toy) => toy.user_id)
   toys: Toy[];
 }

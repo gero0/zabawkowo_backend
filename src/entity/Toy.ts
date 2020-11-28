@@ -13,25 +13,25 @@ export class Toy extends BaseEntity{
   id: number;
 
   @Column({type: 'varchar', nullable: false})
-  Name: string;
+  name: string;
 
   @Column({type: 'varchar', nullable: false})
-  Description: string;
+  description: string;
 
   @Column({type: 'decimal', nullable: false})
-  Price: number;
+  price: number;
 
   @Column({type: 'varchar', nullable: true})
-  Age: number;
+  age: number;
 
   @Column({type: 'varchar', nullable: true})
-  Photo: string;
+  photo: string;
 
   @Column({type: 'enum', enum: Status, nullable: false})
-  Status: string;
+  status: string;
 
   @ManyToOne(() => User, (user) => user.toys)
-  User_id: User;
+  user_id: User;
 
   @ManyToMany(() => ToyType)
   @JoinTable({name: 'toyTypeXRef'})

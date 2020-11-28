@@ -11,17 +11,17 @@ export class Message extends BaseEntity {
   id: number;
 
   @Column({ type: "int", nullable: false })
-  Chat_id: number;
+  chat_id: number;
 
   @Column({ type: "int", nullable: false })
-  Sender_id: number;
+  sender_id: number;
 
   @Column({ type: "varchar", nullable: false })
   text: string;
 
   @Column({ type: "date", nullable: false })
-  Send_date: Date;
+  send_date: Date;
 
   @Column({ type: "enum", enum: MessageStatus, nullable: false })
-  Message_status: string;
+  message_status: string;
 }

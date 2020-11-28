@@ -1,0 +1,16 @@
+extends layout
+
+block title
+  title #{offer.name}
+
+block content
+  section(class='offer')
+    - var img = offer.photo;
+    - var url = '/offer/' + offer.id;
+    div(class='offer')
+      img(src=img)
+      div(class='offer-desc')
+        h1 #{offer.name}
+        p #{offer.description}
+      div(class='offer-right-section')
+        p Cena: #{offer.price}zł

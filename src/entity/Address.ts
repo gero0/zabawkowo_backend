@@ -6,11 +6,14 @@ export class Address extends BaseEntity{
   id: number;
 
   @Column({type: 'varchar', nullable: false})
-  Street_address: string;
+  street_address: string;
 
   @Column({type: 'varchar', nullable: false})
-  City: string;
+  city: string;
 
   @Column({type: 'varchar', nullable: false})
-  Postal_code: string;
+  postal_code: string;
+
+  @Column({type: 'int', nullable: false})
+  user_id: number;
 }
