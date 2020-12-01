@@ -21,6 +21,9 @@ export class Toy extends BaseEntity{
   @Column({type: 'decimal', nullable: false})
   price: number;
 
+  @Column({type: 'date', nullable: false, default: () => "CURRENT_TIMESTAMP"})
+  created_at: Date;
+
   @Column({type: 'varchar', nullable: true})
   age: number;
 

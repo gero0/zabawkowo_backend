@@ -4,13 +4,19 @@ block title
   title #{offer.name}
 
 block content
-  section(class='offer')
+  main
     - var img = offer.photo;
     - var url = '/offer/' + offer.id;
-    div(class='offer')
+    div(class='offer-details')
       img(src=img)
       div(class='offer-desc')
         h1 #{offer.name}
         p #{offer.description}
       div(class='offer-right-section')
-        p Cena: #{offer.price}zł
+         p Cena: #{offer.price}zł
+    div(class="user-details")
+      h3 Informacje o sprzedającym:
+      p użytkownik: #{user.username}
+      p numer telefonu: #{user.phone_number}
+      a(href='/')
+        p(id="send-message-button") Wyślij wiadomość...

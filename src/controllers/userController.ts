@@ -3,20 +3,15 @@ import { User } from "../entity/User";
 const argon2 = require("argon2");
 
 export const get_user_basic = async (req, res, next) => {
-  const user = await User.findOne(req.params.id);
+  const user = await User.findOne(req.params.id, {
+    select: ["username", "email", "creation_date", "phone_number"],
+  });
 
   if (!user) {
     return res.status(400).json({ status: "User not found" });
   }
 
-  const user_data = {
-    username: user.username,
-    email: user.email,
-    creation_date: user.creation_date,
-    phone_number: user.phone_number,
-  };
-
-  res.send(JSON.stringify(user_data));
+  res.send(JSON.stringify(user));
 };
 
 export const token_test = async (req, res) => {
@@ -57,23 +52,47 @@ export const create_user = async (req, res, next) => {
 
     const hashedPassword = await argon2.hash(data.password);
 
-    let result = await User.create({
+    const newUser = await User.create({
       username: data.username,
       password: hashedPassword,
       email: data.email,
       phone_number: data.phone_number ? data.phone_number : "",
       first_name: data.first_name,
       last_name: data.last_name,
-    }).save();
+    });
+
+    newUser.save();
 
     const access_token = generateToken(data.username);
 
     res.status(201).json({ status: "OK", token: access_token });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ status: "ERROR_CREATING_USER" });
+    res.status(500).json({ status: "ERR_CREATING_USER" });
     return;
   }
+};
+
+export const login = async (req, res) => {
+  const data = req.body;
+
+  const user = await User.findOne({ where: { email: data.email } });
+
+  if (!user) {
+    res.status(404).json({ status: "INCORRECT_CREDENTIALS" });
+    return;
+  }
+
+  const valid = await argon2.verify(user.password, data.password);
+
+  if (!valid) {
+    res.status(404).json({ status: "INCORRECT_CREDENTIALS" });
+    return;
+  }
+
+  const access_token = generateToken(data.username);
+
+  res.status(201).json({ status: "OK", token: access_token });
 };
 
 export const delete_user = async (req, res) => {
@@ -84,6 +103,7 @@ export const delete_user = async (req, res) => {
     await User.remove(user_to_remove);
   } catch {
     res.status(401).json({ status: "User no longer exists" });
+    return;
   }
   res.status(201).json({ status: "OK" });
 };

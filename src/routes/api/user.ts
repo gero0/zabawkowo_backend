@@ -1,4 +1,3 @@
-import { runInContext } from "vm";
 import { authenticateToken } from "../../authentication";
 import * as userController from "../../controllers/userController";
 
@@ -10,11 +9,14 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/id/:id", userController.get_user_basic);
+router.get("/delete", authenticateToken, userController.delete_user);
 
-router.post("/create", userController.create_user);
+router.post("/register", userController.create_user);
+router.post("/login", userController.login);
 
+
+//TODO: Delete this later
 router.get("/test", authenticateToken, userController.token_test);
 
-router.get("/delete", authenticateToken, userController.delete_user);
 
 export default router;

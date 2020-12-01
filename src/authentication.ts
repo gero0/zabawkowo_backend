@@ -16,7 +16,7 @@ export function authenticateToken(req, res, next) {
     token,
     TOKEN_SECRET as string,
     (err: any, data: any) => {
-      console.log(err);
+      if (err) console.log(err);
       if (err) return res.status(401).json({ status: "TOKEN_ERR" });
       req.auth_data = data;
       next(); // pass the execution off to whatever request the client intended

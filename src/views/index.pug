@@ -6,8 +6,20 @@ block title
 block content
   main
     aside
-      p Wyszukiwarka?
-      p Kategorie?
+      div(id="searchContainer")
+        div(id="fake-search")
+          p Wyszukaj...
+        input(type="button", value="Szukaj...")
+      ul
+        each category in categories
+          div(class='checkbox')
+            li
+              input(type="checkbox")
+              label #{category.name}
+      p Cena:
+      div(class="priceContainer")
+        input(type="number", placeholder="min")
+        input(type="number", placeholder="max")
     section(id='offers')
       each offer in list_offers
         - var img = offer.photo;
