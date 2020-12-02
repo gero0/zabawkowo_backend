@@ -7,6 +7,7 @@ const cors = require('cors');
 
 import indexRouter from "./routes/site";
 import offerRouter from "./routes/site/offer";
+import chatRouter from "./routes/site/chat";
 
 import apiUserRouter from "./routes/api/user"
 import apiOfferRouter from "./routes/api/offer"
@@ -45,6 +46,7 @@ app.use(fileUpload({
 //Routes for desktop site
 app.use("/", indexRouter);
 app.use("/offer", offerRouter);
+app.use("/chat", chatRouter);
 
 //Routes for API
 app.use("/api/user", apiUserRouter);

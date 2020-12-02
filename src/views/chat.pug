@@ -1,0 +1,28 @@
+extends layout
+
+block title
+  title Czat
+
+block content
+    div(id='chat-window')
+      div(class="message-box")
+        div(class="message")
+          p Witam, chciałbym kupić zestaw do szachów
+      div(class="message-box")
+        div(class="message message-right")
+          p Rozumiem, cena wynosi 100zł
+      div(class="message-box")
+        div(class="message")
+          p Chciałbym odebrać zamówienie osobiście, czy to nie problem?
+      div(class="message-box")
+        div(class="message message-right")
+          p W żadnym wypadku.
+      div(class="message-box")
+        div(class="message")
+          p Czy mogę podjechać jutro ok. 16:00?
+      div(class="message-box")
+        div(class="message message-right")
+          p W porządku
+    div(id='message-input')
+      textarea(rows="1" cols="50" wrap="physical" class="text-input")
+      p(id="send-button") Wyślij wiadomość
