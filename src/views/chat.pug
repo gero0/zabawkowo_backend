@@ -1,10 +1,15 @@
 extends layout
 
+block includes
+  link(rel='stylesheet' href='/css/styles_chat.css')
+
 block title
   title Czat
 
 block content
     div(id='chat-window')
+      div(id="chat-title")
+        p Rozmawiasz z: andrzej92
       div(class="message-box")
         div(class="message")
           p Witam, chciałbym kupić zestaw do szachów

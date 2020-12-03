@@ -14,7 +14,6 @@ router.get("/delete", authenticateToken, userController.delete_user);
 router.post("/register", userController.create_user);
 router.post("/login", userController.login);
 
-
 //TODO: Delete this later
 router.get("/test", authenticateToken, userController.token_test);
 

@@ -12,6 +12,10 @@ router.get("/", async (req, res) => {
   res.render("index", { list_offers: list_sorted, categories });
 });
 
+router.get("/create", async (req, res) => {
+  res.render("offer_form");
+});
+
 router.get("/:id", async (req, res) => {
   const offer = await Toy.findOne(req.params.id);
   const user = await User.findOne(offer.user_id);
