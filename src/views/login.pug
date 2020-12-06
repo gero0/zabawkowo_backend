@@ -1,0 +1,38 @@
+extends layout
+
+block includes
+  link(rel='stylesheet' href='/css/styles_login.css')
+  script(src='/js/helpers.js', type='module', defer)
+  script(src='/js/login_page.js',type='module', defer)
+
+block title
+  title Zaloguj lub zarejestruj...
+
+block content
+  main
+    div(id='login-form-box')
+      h3 Zaloguj...
+      form(id='login-form')
+        label(for='email') email:
+        input(id='email', type='text', name='email')
+        label(for='password') Hasło:
+        input(id='password', type='password', name='password')
+        input(id='submit-login', type='button', name='submit-login', value="Zaloguj...")
+      div(id='login-error')
+
+    div(id='register-form-box')
+      h3 Zarejestruj...
+      form(id='register-form')
+        label(for='name') Nazwa użytkownika:
+        input(id='name', type='text', name='username')
+        label(for='password') Hasło:
+        input(id='password', type='password', name='password')
+        label(for='email') email:
+        input(id='email', type='email', name='email')
+        label(for='first_name') Imię:
+        input(id='first_name', type='text', name='first_name')
+        label(for='last_name') Nazwisko:
+        input(id='last_name', type='text', name='last_name')
+        label(for='phone_number') Nr telefonu (opcjonalne):
+        input(id='phone_number', type='text', name='phone_number')
+        input(id='submit-register', type='button', name='submit-register', value="Zarejestruj...")

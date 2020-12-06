@@ -59,7 +59,7 @@ export const offer_create = async (req, res) => {
     //TODO: VALIDATE PRICE!
     //TODO: Test categories!
     
-    const newOffer = await Toy.create({
+    let newOffer = await Toy.create({
       name: data.name,
       description: data.description,
       price: data.price,
@@ -69,16 +69,18 @@ export const offer_create = async (req, res) => {
       user_id: loggedUser,
     });
 
-    newOffer.save();
+    newOffer = await newOffer.save();
+    res.status(201).json({ status: "OK", offer_id: newOffer.id });
   } catch {
     res.status(500).json({ status: "ERR_ADDING_OFFER" });
     return;
   }
-  res.status(201).json({ status: "OK" });
 };
 
 export const upload_photo = async (req, res) => {
+  
   try {
+    console.log(req.files)
     if (!req.files || !req.files.file) {
       res.status(401).json({ status: "ERR_FILE_MISSING" });
       return;
@@ -112,5 +114,5 @@ export const upload_photo = async (req, res) => {
     return;
   }
 
-  res.status(200).json({ status: "OK " });
+  res.status(200).json({ status: "OK" });
 };

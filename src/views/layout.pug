@@ -4,6 +4,7 @@ html
     meta(charset= "utf-8")
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href='/css/styles.css')
+    script(src='/js/logout.js', defer)
     block includes
   body
     header
@@ -12,5 +13,5 @@ html
           img(src="/images/logo.png")
       div(id='user-data')
         p Witaj, theSausage 
-          a(href='/') Wyloguj
+          a(id='logout-button', href='/') Wyloguj
     block content

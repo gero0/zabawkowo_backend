@@ -9,7 +9,6 @@ main{
   display: flex;
   width: 100%;
   max-width: 800px;
-  max-height: 70vh;
   background-color: var(--light_green);
 }
 

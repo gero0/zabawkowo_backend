@@ -90,7 +90,7 @@ export const login = async (req, res) => {
     return;
   }
 
-  const access_token = generateToken(data.username);
+  const access_token = generateToken(user.username);
 
   res.status(201).json({ status: "OK", token: access_token });
 };

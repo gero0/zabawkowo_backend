@@ -2,6 +2,8 @@ extends layout
 
 block includes
   link(rel='stylesheet' href='/css/styles_offer_form.css')
+  script(src='/js/helpers.js', type='module', defer)
+  script(src='/js/offer_form.js',type='module', defer)
 
 block title
   title Dodaj ofertę...
@@ -11,16 +13,16 @@ block content
     h1(id="create-offer-h1") Utwórz ofertę...
     div(id="form-container")
       div(id="form-img")
-        img(src='/images/nophoto.png')
-        input(type="button", value="Załaduj...")
+        img(id="img-preview", src='/images/nophoto.png')
+        input(id="file-selector", type="file", value="Załaduj...", accept=".png", name='file')
       div(id="form-fields")
         form(id="offerForm")
           label(for="name", value="Nazwa") Nazwa:
-          input(id="name", type="text", value="")
+          input(id="name", type="text", value="", name="name")
           label(for="description", value="Opis") Opis:
-          textarea(id="description", value="", style="resize: none")
+          textarea(id="description", value="", style="resize: none", name="description")
           label(for="price", value="Cena") Cena (zł):
-          input(id="name", type="number", value="") 
+          input(id="name", type="number", value="", name='price') 
           label(for="age", value="Wiek zabawki") Wiek zabawki (opcjonalne):
-          input(id="name", type="number", value="") 
+          input(id="name", type="number", value="", name='age') 
           input(id="form-submit", type="button", value="Wyślij...")
