@@ -56,13 +56,31 @@ export const offer_create = async (req, res) => {
       return;
     }
 
-    //TODO: VALIDATE PRICE!
+    //replace comma with dot
+    let price = data.price.replace(',', '.');
+
+    //Forgive me future me, for i had to use regex
+    // ^ - must be beginning of string
+    // $ - must be end of string
+    // + one or more
+    // () - blocks
+    // \. - literal dot
+    // [] - character from range
+    // ? 0 or 1
+    let re = new RegExp(`^([0-9])+(\.([0-9][0-9]))?$`);
+
+    //test if this is a valid price
+    if(!re.test(price)) {
+      res.status(400).json({ status: "ERR_PRICE" });
+      return;
+    }
+    
     //TODO: Test categories!
     
     let newOffer = await Toy.create({
       name: data.name,
       description: data.description,
-      price: data.price,
+      price: price,
       age: data.age ? data.age : null,
       status: "Active",
       types: data.types ? data.types : null,

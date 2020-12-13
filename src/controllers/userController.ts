@@ -2,6 +2,19 @@ import { generateToken } from "../authentication";
 import { User } from "../entity/User";
 const argon2 = require("argon2");
 
+export const me = async (req, res) => {
+  const loggedUser = await User.findOne({
+    where: { username: req.auth_data.username },
+  });
+
+  if(!loggedUser){
+    res.status(404).json({ status: "ERR_USER_NOT_FOUND" });
+    return;
+  }
+
+  res.send(JSON.stringify(loggedUser))
+}
+
 export const get_user_basic = async (req, res, next) => {
   const user = await User.findOne(req.params.id, {
     select: ["username", "email", "creation_date", "phone_number"],

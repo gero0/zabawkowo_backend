@@ -1,6 +1,6 @@
+import { authenticateTokenGet } from "../../authentication";
 import { Toy } from "../../entity/Toy";
 import { ToyType } from "../../entity/ToyType";
-import { User } from "../../entity/User";
 
 const express = require("express");
 const router = express.Router();
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   res.render("index", { list_offers: list_sorted, categories });
 });
 
-router.get("/create", async (req, res) => {
+router.get("/create", authenticateTokenGet, async (req, res) => {
   res.render("offer_form");
 });
 

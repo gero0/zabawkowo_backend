@@ -1,4 +1,4 @@
-import { authenticateToken } from "../../authentication";
+import { authenticateToken, authenticateTokenGet } from "../../authentication";
 import * as userController from "../../controllers/userController";
 
 const express = require("express");
@@ -9,13 +9,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/id/:id", userController.get_user_basic);
-router.get("/delete", authenticateToken, userController.delete_user);
+router.get("/me", authenticateTokenGet, userController.me)
 
 router.post("/register", userController.create_user);
 router.post("/login", userController.login);
-
-//TODO: Delete this later
-router.get("/test", authenticateToken, userController.token_test);
+router.post("/delete", authenticateToken, userController.delete_user);
 
 
 export default router;

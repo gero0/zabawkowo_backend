@@ -12,6 +12,10 @@ html
         a(href='/')
           img(src="/images/logo.png")
       div(id='user-data')
-        p Witaj, theSausage 
-          a(id='logout-button', href='/') Wyloguj
+        p Witaj, 
+          a(href='/user') theSausage 
+          a(id="logout-button" class='header-button', href='') Wyloguj
+          a(class='header-button', href='/offer/create') Utwórz ofertę...
+          a(class='header-button', href='/') Moje oferty...
     block content
+    footer

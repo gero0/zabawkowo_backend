@@ -1,0 +1,22 @@
+extends layout
+
+block includes
+  link(rel='stylesheet' href='/css/styles_user.css')
+
+block title
+  title Użytkownik: theSausage
+
+block content
+  main
+    h3 Moje dane:
+    div(class='user-details')
+      p Nazwa użytkownika: theSausage
+      p email: ts@example.com
+      p nr telefonu: +4866011111
+    
+    h3 Moje adresy:
+    div(class='addresses')
+      div(class='address')
+        p Ulica: Przykładowa 28
+        p Miasto: Radom
+        p Kod pocztowy: 21-370

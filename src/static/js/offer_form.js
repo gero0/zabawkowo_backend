@@ -12,8 +12,6 @@ async function submit_offer(event) {
 
   //TODO: Validation
   //TODO: Categories!!!
-  //TODO: Get this token outta here after testing
-  //TODO: FIX ADDRESS IN POST REQ!
 
   console.log(localStorage.getItem('token'))
   const headers = {

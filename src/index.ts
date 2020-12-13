@@ -7,10 +7,13 @@ const cors = require('cors');
 
 import indexRouter from "./routes/site";
 import offerRouter from "./routes/site/offer";
+import userRouter from "./routes/site/user";
 import chatRouter from "./routes/site/chat";
 
 import apiUserRouter from "./routes/api/user"
 import apiOfferRouter from "./routes/api/offer"
+
+const cookieParser = require("cookie-parser");
 
 //Create connection to database
 createConnection()
@@ -30,6 +33,7 @@ app.use(express.urlencoded({
   extended: true,
   parameterLimit:50000
 }))
+app.use(cookieParser());
 
 //Set the template engine
 app.set("view engine", "pug");
@@ -47,6 +51,7 @@ app.use(fileUpload({
 app.use("/", indexRouter);
 app.use("/offer", offerRouter);
 app.use("/chat", chatRouter);
+app.use("/user", userRouter);
 
 //Routes for API
 app.use("/api/user", apiUserRouter);
