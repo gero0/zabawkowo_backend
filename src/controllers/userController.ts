@@ -61,7 +61,22 @@ export const create_user = async (req, res, next) => {
       return;
     }
 
-    //TODO: validate phone number
+    let phoneNumber = data.phone_number ? data.phone_number : "";
+
+    //Forgive me future me, for i had to use regex
+    // ^ - must be beginning of string
+    // $ - must be end of string
+    // + one or more
+    // () - blocks
+    // \. - literal dot
+    // [] - character from range
+    // ? 0 or 1
+    let re = new RegExp('^(\\+[0-9][0-9])?([0-9]){9}$');
+
+    if(phoneNumber !== "" && !re.test(phoneNumber)) {
+      res.status(400).json({ status: "ERR_PHONE_NUMBER" });
+      return;
+    }
 
     const hashedPassword = await argon2.hash(data.password);
 
@@ -69,7 +84,7 @@ export const create_user = async (req, res, next) => {
       username: data.username,
       password: hashedPassword,
       email: data.email,
-      phone_number: data.phone_number ? data.phone_number : "",
+      phone_number: phoneNumber,
       first_name: data.first_name,
       last_name: data.last_name,
     });
