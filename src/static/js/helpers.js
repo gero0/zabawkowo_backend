@@ -6,7 +6,7 @@ export function buildJson(form) {
   return jsonData;
 }
 
-export async function postRequest(link, headers, body, nostringify=false) {
+export async function postRequest(link, headers, body, nostringify = false) {
   if (!link || !headers || !body) {
     console.log("ERROR posting json");
     return;

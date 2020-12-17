@@ -7,13 +7,13 @@ export const me = async (req, res) => {
     where: { username: req.auth_data.username },
   });
 
-  if(!loggedUser){
+  if (!loggedUser) {
     res.status(404).json({ status: "ERR_USER_NOT_FOUND" });
     return;
   }
 
-  res.send(JSON.stringify(loggedUser))
-}
+  res.send(JSON.stringify(loggedUser));
+};
 
 export const get_user_basic = async (req, res, next) => {
   const user = await User.findOne(req.params.id, {
@@ -71,9 +71,9 @@ export const create_user = async (req, res, next) => {
     // \. - literal dot
     // [] - character from range
     // ? 0 or 1
-    let re = new RegExp('^(\\+[0-9][0-9])?([0-9]){9}$');
+    let re = new RegExp("^(\\+[0-9][0-9])?([0-9]){9}$");
 
-    if(phoneNumber !== "" && !re.test(phoneNumber)) {
+    if (phoneNumber !== "" && !re.test(phoneNumber)) {
       res.status(400).json({ status: "ERR_PHONE_NUMBER" });
       return;
     }
@@ -89,7 +89,9 @@ export const create_user = async (req, res, next) => {
       last_name: data.last_name,
     });
 
-    newUser.save();
+    const result = await newUser.save();
+    //For some reason we need to read the result for constraint violation error to be caught
+    console.log(result);
 
     const access_token = generateToken(data.username);
 
