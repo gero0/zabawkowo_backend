@@ -1,10 +1,58 @@
+import { createHash } from "crypto";
 import { generateToken } from "../authentication";
+import { Address } from "../entity/Address";
 import { User } from "../entity/User";
 const argon2 = require("argon2");
+
+export const add_address = async (req, res) => {
+  const loggedUser = await User.findOne({
+    where: { username: req.auth_data.username },
+    relations: ["addresses"],
+  });
+
+  if (!loggedUser) {
+    res.status(404).json({ status: "ERR_USER_NOT_FOUND" });
+    return;
+  }
+
+  try {
+    const address = req.body;
+
+    if (!address.city || address.city == "") {
+      res.status(400).json({ status: "ERR_ADDRESS_CITY" });
+      return;
+    }
+
+    if (!address.postal_code || address.postal_code == "") {
+      res.status(400).json({ status: "ERR_ADDRESS_POSTAL" });
+      return;
+    }
+
+    if (!address.street_address || address.street_address == "") {
+      res.status(400).json({ status: "ERR_ADDRESS_STREET" });
+      return;
+    }
+
+    const newAddress = (Address.create({
+      ...address,
+      user_id: loggedUser.id,
+    }) as unknown) as Address; 
+    //had to cast to address because for some reason typescript
+    //thought create returns an array
+    console.log(newAddress);
+    newAddress.save();
+
+    res.status(200).json({ status: "OK" });
+  } catch (err) {
+    res.status(500).json({ status: "ERR_ADDING_ADDRESS" });
+    return;
+  }
+};
 
 export const me = async (req, res) => {
   const loggedUser = await User.findOne({
     where: { username: req.auth_data.username },
+    relations: ["addresses"],
   });
 
   if (!loggedUser) {

@@ -1,4 +1,5 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Address } from "./Address";
 import { Toy } from "./Toy";
 
 @Entity()
@@ -29,4 +30,7 @@ export class User extends BaseEntity{
 
   @OneToMany(() => Toy, (toy) => toy.user_id)
   toys: Toy[];
+
+  @OneToMany(() => Address, (address) => address.user_id)
+  addresses: Address[];
 }

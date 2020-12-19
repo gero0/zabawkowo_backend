@@ -2,6 +2,7 @@ extends layout
 
 block includes
   link(rel='stylesheet' href='/css/styles_user.css')
+  script(src='/js/address_form.js',type='module', defer)
 
 block title
   title Użytkownik: theSausage
@@ -20,3 +21,14 @@ block content
         p Ulica: Przykładowa 28
         p Miasto: Radom
         p Kod pocztowy: 21-370
+
+    h3 Dodaj adres...
+    form(id='address-form')
+        label(for='street_address') Ulica i nr domu:
+        input(id='street_address', type='text', name='street_address')
+        label(for='postal_code') Kod pocztowy:
+        input(id='postal_code', type='text', name='postal_code')
+        label(for='city') Miasto:
+        input(id='city', type='text', name='city')
+        input(id='submit-form', type='button', name='submit-form', value="Dodaj nowy adres...")
+    div(id='form-error')

@@ -57,7 +57,7 @@ export const offer_create = async (req, res) => {
     }
 
     //replace comma with dot
-    let price = data.price.replace(',', '.');
+    let price = data.price.replace(",", ".");
 
     //Forgive me future me, for i had to use regex
     // ^ - must be beginning of string
@@ -70,13 +70,13 @@ export const offer_create = async (req, res) => {
     let re = new RegExp(`^([0-9])+(\.([0-9][0-9]))?$`);
 
     //test if this is a valid price
-    if(!re.test(price)) {
+    if (!re.test(price)) {
       res.status(400).json({ status: "ERR_PRICE" });
       return;
     }
-    
+
     //TODO: Test categories!
-    
+
     let newOffer = await Toy.create({
       name: data.name,
       description: data.description,
@@ -96,9 +96,7 @@ export const offer_create = async (req, res) => {
 };
 
 export const upload_photo = async (req, res) => {
-  
   try {
-    console.log(req.files)
     if (!req.files || !req.files.file) {
       res.status(401).json({ status: "ERR_FILE_MISSING" });
       return;
@@ -122,7 +120,19 @@ export const upload_photo = async (req, res) => {
 
     const photo = req.files.file;
 
-    const path = "/images/products/offer_" + offer.id + ".png";
+    let extension = "";
+
+    if (photo.mimetype === "image/png") {
+      extension = ".png";
+    } else if (photo.mimetype === "image/jpeg") {
+      extension = ".jpg";
+    } else if (photo.mimetype === "image/gif") {
+      extension = ".gif";
+    } else {
+      throw new Error("Unsupported file format");
+    }
+
+    const path = "/images/products/offer_" + offer.id + extension;
 
     photo.mv("./src/static" + path);
     offer.photo = path;

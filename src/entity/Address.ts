@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Address extends BaseEntity{
@@ -14,6 +15,6 @@ export class Address extends BaseEntity{
   @Column({type: 'varchar', nullable: false})
   postal_code: string;
 
-  @Column({type: 'int', nullable: false})
+  @ManyToOne(()=> User, (user) => user.addresses)
   user_id: number;
 }
