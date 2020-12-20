@@ -2,12 +2,65 @@ import { Toy } from "../entity/Toy";
 import { getConnection } from "typeorm";
 import { User } from "../entity/User";
 
+export const getOffers = async (req) => {
+  let query = await getConnection()
+    .createQueryBuilder()
+    .select("toy")
+    .from(Toy, "toy")
+    .leftJoinAndSelect("toy.types", "type")
+    .where("1=1");
+  // where 1=1 added so we don't have to check if where was already used
+  // otherwise we would have to check in every condition if where was used before
+  // because you must call where only once and then use andWhere in next conditions
+
+  if (req.query.search_text) {
+    query = query.andWhere(
+      "toy.name LIKE :text OR toy.description LIKE :text",
+      { text: "%" + req.query.search_text + "%" }
+    );
+  }
+
+  if (req.query.min_price && parseFloat(req.query.min_price)) {
+    query = query.andWhere("toy.price >= :minPrice", {
+      minPrice: req.query.min_price,
+    });
+  }
+
+  if (req.query.max_price && parseFloat(req.query.max_price)) {
+    query = query.andWhere("toy.price <= :maxPrice", {
+      maxPrice: req.query.max_price,
+    });
+  }
+
+  if (req.query.categories) {
+    const separatedNumbers = req.query.categories.split(";");
+    let categories = [];
+
+    separatedNumbers.forEach((n) => {
+      if (parseInt(n)) {
+        categories.push(parseInt(n));
+      }
+    });
+
+    query = query.andWhere("type.id IN (:...categories)", { categories });
+  }
+
+  const offers = await query.getMany();
+
+  console.log(offers);
+
+  return offers;
+};
+
 export const list = async (req, res, next) => {
-  //TODO: implement some kid of pagination
-  const offers = await Toy.find();
+  //TODO: categories
+
+  //const offers = await Toy.find();
+
+  const offers = await getOffers(req);
 
   if (!offers) {
-    res.status(404).json({ status: "NO_OFFERS" });
+    res.status(200).json({});
     return;
   }
 

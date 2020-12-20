@@ -1,5 +1,8 @@
 extends layout
 
+block includes
+  script(src='/js/offer_index.js' type='module' defer)
+
 block title
   title= 'INDEX'
 
@@ -7,18 +10,19 @@ block content
   main
     aside
       div(id="searchContainer")
-        input(type="text", value="wyszukaj...")
-        input(type="button", value="Szukaj...")
+        input(id='search-text', type="text", placeholder="wyszukaj...")
+        input(id='search-button', type="button", value="Szukaj...")
       ul
         each category in categories
           div(class='checkbox')
             li
-              input(type="checkbox")
+              - var checkbox_id = 'checkbox-'+category.id
+              input(id=checkbox_id, class="category-checkbox" type="checkbox")
               label #{category.name}
       p Cena:
       div(class="priceContainer")
-        input(type="number", placeholder="min")
-        input(type="number", placeholder="max")
+        input(id="min-price", type="number", placeholder="min")
+        input(id="max-price", type="number", placeholder="max")
     section(id='offers')
       each offer in list_offers
         - var img = offer.photo;

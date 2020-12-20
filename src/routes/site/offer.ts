@@ -1,12 +1,13 @@
 import { authenticateTokenGet } from "../../authentication";
 import { Toy } from "../../entity/Toy";
 import { ToyType } from "../../entity/ToyType";
+import { getOffers } from '../../controllers/offerController'
 
 const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const list_offers = await Toy.find({ where: { status: "Active" } });
+  const list_offers = await getOffers(req);
   const list_sorted = list_offers.sort((a, b) => {
     return a.created_at > b.created_at ? -1 : 1;
   });
