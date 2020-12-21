@@ -22,13 +22,13 @@ export const getOffers = async (req) => {
 
   if (req.query.min_price && parseFloat(req.query.min_price)) {
     query = query.andWhere("toy.price >= :minPrice", {
-      minPrice: req.query.min_price,
+      minPrice: parseFloat(req.query.min_price),
     });
   }
 
   if (req.query.max_price && parseFloat(req.query.max_price)) {
     query = query.andWhere("toy.price <= :maxPrice", {
-      maxPrice: req.query.max_price,
+      maxPrice: parseFloat(req.query.max_price),
     });
   }
 
@@ -47,15 +47,10 @@ export const getOffers = async (req) => {
 
   const offers = await query.getMany();
 
-  console.log(offers);
-
   return offers;
 };
 
 export const list = async (req, res, next) => {
-  //TODO: categories
-
-  //const offers = await Toy.find();
 
   const offers = await getOffers(req);
 
