@@ -1,6 +1,7 @@
 import { Toy } from "../entity/Toy";
 import { getConnection } from "typeorm";
 import { User } from "../entity/User";
+import { ToyType } from "../entity/ToyType";
 
 export const getOffers = async (req) => {
   let query = await getConnection()
@@ -51,7 +52,6 @@ export const getOffers = async (req) => {
 };
 
 export const list = async (req, res, next) => {
-
   const offers = await getOffers(req);
 
   if (!offers) {
@@ -191,4 +191,13 @@ export const upload_photo = async (req, res) => {
   }
 
   res.status(200).json({ status: "OK" });
+};
+
+export const categories = async (req, res) => {
+  try {
+    const categories = await ToyType.find();
+    res.status(200).json(categories);
+  } catch (e) {
+    res.status(500).json({ status: "ERR_FETCHING_CATEGORIES" });
+  }
 };
