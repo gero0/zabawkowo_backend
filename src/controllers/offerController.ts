@@ -123,7 +123,16 @@ export const offer_create = async (req, res) => {
       return;
     }
 
-    //TODO: Test categories!
+    const categoryIds = data.categories.map((categoryId) =>
+      parseInt(categoryId)
+    );
+
+    let categories = await getConnection()
+      .createQueryBuilder(ToyType, "type")
+      .where("type.id IN (:...categoryIds)", { categoryIds })
+      .getMany();
+
+    console.log(categories);
 
     let newOffer = await Toy.create({
       name: data.name,
@@ -131,7 +140,7 @@ export const offer_create = async (req, res) => {
       price: price,
       age: data.age ? data.age : null,
       status: "Active",
-      types: data.types ? data.types : null,
+      types: categories,
       user_id: loggedUser,
     });
 

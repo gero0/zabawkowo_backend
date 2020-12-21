@@ -56,3 +56,19 @@ main{
   min-height:100px;
 }
 
+.checkbox-div{
+  display: flex;
+  width: 150px;
+}
+
+.checkbox-div label{
+  display: block;
+}
+
+#form-fields .category-checkbox{
+  width: 30px;
+  display: block;
+  margin: 0;
+  margin-left: auto;
+  align: right;
+}

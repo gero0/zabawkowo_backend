@@ -1,7 +1,7 @@
 import { authenticateTokenGet } from "../../authentication";
 import { Toy } from "../../entity/Toy";
 import { ToyType } from "../../entity/ToyType";
-import { getOffers } from '../../controllers/offerController'
+import { getOffers } from "../../controllers/offerController";
 
 const express = require("express");
 const router = express.Router();
@@ -16,17 +16,24 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/create", authenticateTokenGet, async (req, res) => {
-  res.render("offer_form");
+  const categories = await ToyType.find();
+  res.render("offer_form", { categories });
 });
 
 router.get("/:id", async (req, res) => {
-  const offer = await Toy.findOne(req.params.id, { relations: ["user_id"] });
-  if(!offer){
-    res.status(404).send("Nie znaleziono oferty! <a href='/'>Powrót do strony głównej</a>");
+  const offer = await Toy.findOne(req.params.id, {
+    relations: ["user_id", "types"],
+  });
+  const categories = offer.types.map((category) => category.name);
+  console.log(categories);
+  if (!offer) {
+    res
+      .status(404)
+      .send("Nie znaleziono oferty! <a href='/'>Powrót do strony głównej</a>");
     return;
   }
   const user = offer.user_id;
-  res.render("offer", { offer, user });
+  res.render("offer", { offer, user, categories });
 });
 
 export default router;

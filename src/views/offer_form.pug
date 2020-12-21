@@ -25,4 +25,12 @@ block content
           input(id="price", type="text", value="", name='price') 
           label(for="age", value="Wiek zabawki") Wiek zabawki (opcjonalne):
           input(id="age", type="number", value="", name='age') 
+          p Kategorie (opcjonalnie)
+          ul
+            each category in categories
+              li
+                div(class="checkbox-div")
+                  - var checkbox_id = 'checkbox-'+category.id
+                  label #{category.name}
+                  input(id=checkbox_id, class="category-checkbox" type="checkbox")
           input(id="form-submit", type="button", value="Wyślij...")
