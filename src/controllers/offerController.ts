@@ -63,7 +63,7 @@ export const list = async (req, res, next) => {
 };
 
 export const offer_details = async (req, res) => {
-  const offer = await getConnection().query(
+  /* const offer = await getConnection().query(
     `
       SELECT toy.name, toy.description, toy.price, toy.photo, toy.age, toy.status,
       u.username AS seller_username, u.phone_number AS seller_phone
@@ -71,7 +71,16 @@ export const offer_details = async (req, res) => {
       WHERE toy.id = $1;
     `,
     [req.params.id]
-  );
+  );*/
+
+  const offer = await getConnection()
+    .createQueryBuilder()
+    .select(["toy", "user.username", "user.email", "user.phone_number"])
+    .from(Toy, "toy")
+    .leftJoinAndSelect("toy.types", "type")
+    .leftJoin("toy.user_id", "user")
+    .where({ id: req.params.id })
+    .getOne();
 
   if (!offer) {
     res.status(404).json({ status: "OFFER_NOT_FOUND" });
