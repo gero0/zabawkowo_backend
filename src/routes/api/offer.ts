@@ -1,4 +1,4 @@
-import { authenticateToken } from "../../authentication";
+import { authenticateToken, authenticateTokenGet } from "../../authentication";
 import * as offerController from "../../controllers/offerController";
 
 const express = require("express");
@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get("/", offerController.list);
 router.get("/categories", offerController.categories);
+router.get("/myoffers", authenticateTokenGet, offerController.user_offers);
 router.get("/:id", offerController.offer_details);
 //router.get("/:id/edit", offerController.offer_edit);
 

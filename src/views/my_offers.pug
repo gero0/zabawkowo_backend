@@ -1,0 +1,23 @@
+extends layout
+
+block title
+  title= 'Moje oferty'
+
+block content
+  main
+    aside
+      h1 Moje oferty
+    section(id='offers')
+      each offer in list_offers
+        - var img = offer.photo;
+        - var url = '/offer/' + offer.id;
+        div(class='offer')
+          a(href=url)
+            img(src=img)
+          div(class='offer-desc')
+            a(href=url)
+              h1 #{offer.name}
+            p #{offer.description}
+          div(class='offer-right-section')
+            p Cena: #{offer.price}zł
+

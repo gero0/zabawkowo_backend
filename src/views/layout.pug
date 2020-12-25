@@ -4,7 +4,7 @@ html
     meta(charset= "utf-8")
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href='/css/styles.css')
-    script(src='/js/logout.js', defer)
+    script(src='/js/logout.js')
     block includes
   body
     header
@@ -14,8 +14,8 @@ html
       div(id='user-data')
         p Witaj, 
           a(href='/user') theSausage 
-          a(id="logout-button" class='header-button', href='') Wyloguj
+          a(id="logout-button" class='header-button', onclick="logout()" href="javascript:void(0);") Wyloguj
           a(class='header-button', href='/offer/create') Utwórz ofertę...
-          a(class='header-button', href='/') Moje oferty...
+          a(class='header-button', href='/offer/myoffers') Moje oferty...
     block content
     footer

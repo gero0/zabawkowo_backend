@@ -36,7 +36,7 @@ export const add_address = async (req, res) => {
     const newAddress = (Address.create({
       ...address,
       user_id: loggedUser.id,
-    }) as unknown) as Address; 
+    }) as unknown) as Address;
     //had to cast to address because for some reason typescript
     //thought create returns an array
     console.log(newAddress);

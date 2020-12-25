@@ -5,22 +5,23 @@ block includes
   script(src='/js/address_form.js',type='module', defer)
 
 block title
-  title Użytkownik: theSausage
+  title Użytkownik: #{user.username}
 
 block content
   main
     h3 Moje dane:
     div(class='user-details')
-      p Nazwa użytkownika: theSausage
-      p email: ts@example.com
-      p nr telefonu: +4866011111
+      p Nazwa użytkownika: #{user.username}
+      p email: #{user.email}
+      p nr telefonu: #{user.phone_number}
     
     h3 Moje adresy:
     div(class='addresses')
-      div(class='address')
-        p Ulica: Przykładowa 28
-        p Miasto: Radom
-        p Kod pocztowy: 21-370
+      each address in user.addresses
+        div(class='address')
+          p Ulica: #{address.street_address}
+          p Miasto: #{address.city}
+          p Kod pocztowy: #{address.postal_code}
 
     h3 Dodaj adres...
     form(id='address-form')

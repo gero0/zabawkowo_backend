@@ -33,7 +33,7 @@ export const getOffers = async (req) => {
     });
   }
 
-  if (req.query.categories) {
+  if (req.query.categories && req.query.categories.length !== 0) {
     const separatedNumbers = req.query.categories.split(";");
     let categories = [];
 
@@ -42,7 +42,6 @@ export const getOffers = async (req) => {
         categories.push(parseInt(n));
       }
     });
-
     query = query.andWhere("type.id IN (:...categories)", { categories });
   }
 
@@ -51,7 +50,17 @@ export const getOffers = async (req) => {
   return offers;
 };
 
-export const list = async (req, res, next) => {
+export const getUserOffers = async (req) => {
+  const loggedUser = await User.findOne({
+    where: { username: req.auth_data.username },
+  });
+
+  const list_offers = await Toy.find({ user_id: loggedUser });
+
+  return list_offers;
+};
+
+export const list = async (req, res) => {
   const offers = await getOffers(req);
 
   if (!offers) {
@@ -59,6 +68,11 @@ export const list = async (req, res, next) => {
     return;
   }
 
+  res.status(200).json(offers);
+};
+
+export const user_offers = async (req, res) => {
+  const offers = await getUserOffers(req);
   res.status(200).json(offers);
 };
 
@@ -97,7 +111,7 @@ export const offer_delete = async (req, res) => {
 
   await Toy.delete({ id: req.params.id, user_id: loggedUser });
 
-  res.sendStatus(200);
+  res.status(200).json({ status: "OK" });
 };
 
 export const offer_create = async (req, res) => {
@@ -136,12 +150,13 @@ export const offer_create = async (req, res) => {
       parseInt(categoryId)
     );
 
-    let categories = await getConnection()
-      .createQueryBuilder(ToyType, "type")
-      .where("type.id IN (:...categoryIds)", { categoryIds })
-      .getMany();
-
-    console.log(categories);
+    let categories =
+      categoryIds.length !== 0
+        ? await getConnection()
+            .createQueryBuilder(ToyType, "type")
+            .where("type.id IN (:...categoryIds)", { categoryIds })
+            .getMany()
+        : [];
 
     let newOffer = await Toy.create({
       name: data.name,
