@@ -77,15 +77,6 @@ export const user_offers = async (req, res) => {
 };
 
 export const offer_details = async (req, res) => {
-  /* const offer = await getConnection().query(
-    `
-      SELECT toy.name, toy.description, toy.price, toy.photo, toy.age, toy.status,
-      u.username AS seller_username, u.phone_number AS seller_phone
-      FROM toy JOIN public.user u ON (toy."userIdId" = u.id)
-      WHERE toy.id = $1;
-    `,
-    [req.params.id]
-  );*/
 
   const offer = await getConnection()
     .createQueryBuilder()
@@ -97,7 +88,7 @@ export const offer_details = async (req, res) => {
     .getOne();
 
   if (!offer) {
-    res.status(404).json({ status: "OFFER_NOT_FOUND" });
+    res.status(404).json({ status: "ERR_OFFER_NOT_FOUND" });
     return;
   }
 
@@ -122,8 +113,18 @@ export const offer_create = async (req, res) => {
 
     const data = req.body;
 
-    if (!data.name || !data.description || !data.price) {
-      res.status(400).json({ status: "ERR_REQUIRED_FIELD" });
+    if (!data.name || data.name.length < 2) {
+      res.status(400).json({ status: "ERR_OFFER_NAME" });
+      return;
+    }
+
+    if (!data.description || data.description == "") {
+      res.status(400).json({ status: "ERR_OFFER_DESC" });
+      return;
+    }
+
+    if (!data.price) {
+      res.status(400).json({ status: "ERR_OFFER_PRICE" });
       return;
     }
 
@@ -142,7 +143,7 @@ export const offer_create = async (req, res) => {
 
     //test if this is a valid price
     if (!re.test(price)) {
-      res.status(400).json({ status: "ERR_PRICE" });
+      res.status(400).json({ status: "ERR_OFFER_PRICE" });
       return;
     }
 

@@ -128,6 +128,20 @@ export const create_user = async (req, res, next) => {
 
     const hashedPassword = await argon2.hash(data.password);
 
+    let searchUser = await User.find({where:{username: data.username}});
+
+    if(searchUser.length !== 0){
+      res.status(400).json({ status: "ERR_USERNAME_EXISTS" });
+      return;
+    }
+
+    searchUser = await User.find({where:{email: data.email}});
+
+    if(searchUser.length !== 0){
+      res.status(400).json({ status: "ERR_EMAIL_EXISTS" });
+      return;
+    }
+
     const newUser = await User.create({
       username: data.username,
       password: hashedPassword,
@@ -157,14 +171,14 @@ export const login = async (req, res) => {
   const user = await User.findOne({ where: { email: data.email } });
 
   if (!user) {
-    res.status(404).json({ status: "INCORRECT_CREDENTIALS" });
+    res.status(404).json({ status: "ERR_INCORRECT_CREDENTIALS" });
     return;
   }
 
   const valid = await argon2.verify(user.password, data.password);
 
   if (!valid) {
-    res.status(404).json({ status: "INCORRECT_CREDENTIALS" });
+    res.status(404).json({ status: "ERR_INCORRECT_CREDENTIALS" });
     return;
   }
 

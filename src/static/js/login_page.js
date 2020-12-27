@@ -1,3 +1,4 @@
+import ErrorMap from "./errors.js";
 import {buildJson, postRequest} from './helpers.js'
 
 async function submit_login(event){
@@ -17,8 +18,10 @@ async function submit_login(event){
   const form_response = await postRequest('/api/user/login', headers, json);
   
   if (form_response.status !== "OK") {
-    //TODO: ADD ERROR BOX
-    console.log("Could not log in!");
+    const errorBox = document.getElementById("login-error");
+    const errorString = ErrorMap[form_response.status];
+    errorBox.innerHTML = `<p class="errorText">${errorString}</p>`;
+    return;
   }
   
   document.cookie = `token=${form_response.token}`
@@ -43,8 +46,10 @@ async function submit_register(event){
   const form_response = await postRequest('/api/user/register', headers, json);
 
   if (form_response.status !== "OK") {
-    //TODO: ADD ERROR BOX
-    console.log("Could not register!");
+    const errorBox = document.getElementById("register-error");
+    const errorString = ErrorMap[form_response.status];
+    errorBox.innerHTML = `<p class="errorText">${errorString}</p>`;
+    return;
   }
 
   document.cookie = `token=${form_response.token}`

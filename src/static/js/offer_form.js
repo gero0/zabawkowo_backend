@@ -1,3 +1,4 @@
+import ErrorMap from "./errors.js";
 import { buildJson, postRequest, postFile } from "./helpers.js";
 
 async function submit_offer(event) {
@@ -9,8 +10,6 @@ async function submit_offer(event) {
   setTimeout(() => {
     submit_button.disabled = false;
   }, 2000);
-
-  //TODO: Validation
 
   console.log(localStorage.getItem("token"));
   const headers = {
@@ -36,8 +35,10 @@ async function submit_offer(event) {
   const form_response = await postRequest("/api/offer/create", headers, json);
 
   if (form_response.status !== "OK") {
-    //TODO: ADD ERROR BOX
-    console.log("AN ERROR occured");
+    const errorBox = document.getElementById("form-error");
+    const errorString = ErrorMap[form_response.status];
+    errorBox.innerHTML = `<p class="errorText">${errorString}</p>`;
+    return;
   }
   const offerId = form_response.offer_id;
 
@@ -59,8 +60,10 @@ async function submit_offer(event) {
   );
 
   if (img_response.status !== "OK") {
-    //TODO: ADD ERROR BOX
-    console.log("Could not upload photo!");
+    const errorBox = document.getElementById("login-error");
+    const errorString = ErrorMap[form_response.status];
+    errorBox.innerHTML = `<p class="errorText">${errorString}</p>`;
+    return;
   }
 
   window.location.href = `/offer/${offerId}`;

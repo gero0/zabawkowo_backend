@@ -30,6 +30,10 @@ header {
   background-color: var(--header-blue);
 }
 
+.errorText{
+  color: red;
+}
+
 #logo {
   padding: 20;
 }
