@@ -1,0 +1,19 @@
+extends layout
+
+block includes
+
+block title
+  title Zapomniałem hasła
+
+block content
+  main
+    div(id='form-container')
+      h2 Zresetuj hasło...
+      p Podaj adres email, którego użyłeś przy zakładaniu konta.
+      p Zostanie na niego wysłany link do zresetowania hasła.
+      form(id='forgot-form', action="/user/forgot-password", method="post")
+        div(style='display: flex; justify-content: space-around;')
+          label(for='email') email:
+          input(style='width: 200px', id='email', type='email', name='email')
+          input(id='submit-forgot', type='submit', name='submit-forgot', value="Zresetuj hasło...")
+      div(id="form-error")

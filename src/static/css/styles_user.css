@@ -6,7 +6,7 @@ main{
   align-self: center;
   margin: 0 auto;
   margin-top: 20px;
-  background-color: var(--light_green);
+  background-color: var(--main_color);
 }
 
 .user-details p{

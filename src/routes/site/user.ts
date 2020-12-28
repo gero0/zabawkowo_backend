@@ -1,4 +1,5 @@
 import { authenticateTokenGet } from "../../authentication";
+import { send_password_reset } from "../../controllers/userController";
 import { User } from "../../entity/User";
 
 const express = require("express");
@@ -12,5 +13,22 @@ router.get("/", authenticateTokenGet, async (req, res) => {
 
   res.render('user_page', {user: loggedUser});
 });
+
+router.get("/forgot-password", async(req, res) => {
+  res.render("forgot_form");
+})
+
+router.get("/forgot-confirm", async(req, res) => {
+  res.render("forgot_confirmed");
+})
+
+router.post("/forgot-password", async (req, res) => {
+  send_password_reset(req);
+  res.redirect("/user/forgot-confirm")
+})
+
+router.get("/change-password/:token", async (req, res) => {
+  res.render("new_password_form");
+})
 
 export default router;

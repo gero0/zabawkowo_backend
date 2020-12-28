@@ -7,3 +7,4 @@ temp/
 ormconfig.json
 /src/static/images
 secret.ts
+sendEmail.ts

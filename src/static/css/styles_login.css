@@ -1,9 +1,10 @@
 main{
   margin-top: 20px;
+  align-items: stretch;
 }
 
 #login-form-box{
-  background-color: var(--light_green);
+  background-color: var(--main_color);
   flex: 1;
   padding: 20px;
   margin-left: 20px;
@@ -15,7 +16,6 @@ main{
   padding: 20px;
   margin-right: 20px;
 }
-
 
 input, label, textarea, select, button {
   display: block;

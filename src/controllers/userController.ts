@@ -1,8 +1,89 @@
-import { createHash } from "crypto";
 import { generateToken } from "../authentication";
 import { Address } from "../entity/Address";
 import { User } from "../entity/User";
 const argon2 = require("argon2");
+import { v4 } from "uuid";
+import { ResetRequest } from "../entity/ResetRequest";
+import { sendEmail } from "../sendEmail";
+
+//<Helpers>
+
+export const send_password_reset = async (req) => {
+  const email = req.body.email;
+
+  if(!email){
+    return;
+  }
+
+  const user = await User.findOne({ where: { email } });
+
+  if(!user){
+    return;
+  }
+
+  const token = v4();
+
+  let date = new Date(); 
+  date.setDate(date.getDate()+1);
+
+  const request = {
+    uuid: token,
+    expiration_date: date,
+    user_id: user.id
+  }
+
+  const newReq = ResetRequest.create(request);
+  await newReq.save();
+
+  await sendEmail(
+    email,
+    //TODO switch to prod url
+    `<a href="http://localhost:8000/user/change-password/${token}">Reset password</a>`
+  );
+
+}
+
+export const change_password = async(req, res) => {
+  const newPassword = req.body.password;
+  const token = req.params.token;
+
+  console.log(newPassword);
+
+  if (!newPassword || newPassword.length < 8) {
+    res.status(400).json({ status: "ERR_PASSWD_LENGTH" });
+    return;
+  }
+
+  const resetRequest = await ResetRequest.findOne(token);
+  const currentDate = new Date();
+
+  if(!resetRequest){
+    res.status(401).json({ status: "ERR_TOKEN_EXPIRED" });
+    return;
+  }
+
+  if(resetRequest.expiration_date <= currentDate){
+    resetRequest.remove();
+    res.status(401).json({ status: "ERR_TOKEN_EXPIRED" });
+    return;
+  }
+
+  const user = await User.findOne(resetRequest.user_id);
+
+  const hashedPassword = await argon2.hash(newPassword);
+
+  user.password = hashedPassword;
+
+  user.save();
+
+  resetRequest.remove();
+
+  res.status(201).json({ status: "OK" });
+}
+
+//</Helpers>
+
+//<Route handlers>
 
 export const add_address = async (req, res) => {
   const loggedUser = await User.findOne({
@@ -63,7 +144,7 @@ export const me = async (req, res) => {
   res.send(JSON.stringify(loggedUser));
 };
 
-export const get_user_basic = async (req, res, next) => {
+export const get_user_basic = async (req, res) => {
   const user = await User.findOne(req.params.id, {
     select: ["username", "email", "creation_date", "phone_number"],
   });
@@ -80,7 +161,7 @@ export const token_test = async (req, res) => {
   res.json({ status: "OK" });
 };
 
-export const create_user = async (req, res, next) => {
+export const create_user = async (req, res) => {
   const data = req.body;
 
   try {
@@ -128,16 +209,16 @@ export const create_user = async (req, res, next) => {
 
     const hashedPassword = await argon2.hash(data.password);
 
-    let searchUser = await User.find({where:{username: data.username}});
+    let searchUser = await User.find({ where: { username: data.username } });
 
-    if(searchUser.length !== 0){
+    if (searchUser.length !== 0) {
       res.status(400).json({ status: "ERR_USERNAME_EXISTS" });
       return;
     }
 
-    searchUser = await User.find({where:{email: data.email}});
+    searchUser = await User.find({ where: { email: data.email } });
 
-    if(searchUser.length !== 0){
+    if (searchUser.length !== 0) {
       res.status(400).json({ status: "ERR_EMAIL_EXISTS" });
       return;
     }
@@ -197,5 +278,10 @@ export const delete_user = async (req, res) => {
     res.status(401).json({ status: "User no longer exists" });
     return;
   }
+  res.status(201).json({ status: "OK" });
+};
+
+export const forgot_password = async (req, res) => {
+  await send_password_reset(req);
   res.status(201).json({ status: "OK" });
 };

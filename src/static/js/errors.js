@@ -23,7 +23,8 @@ const ErrorMap = {
   "ERR_USERNAME_EXISTS" : "Użytkownik o tej nazwie użytkownika już istnieje. Wybierz inną",
   "ERR_EMAIL_EXISTS" : "Konto o tym adresie email już istnieje.",
   "ERR_CREATING_USER" : "Nie udało się utworzyć użytkownika. Astrolodzy szukają przyczyny w układzie planet",
-  "ERR_INCORRECT_CREDENTIALS" : "Nieprawidłowy email lub hasło"
+  "ERR_INCORRECT_CREDENTIALS" : "Nieprawidłowy email lub hasło",
+  "ERR_TOKEN_EXPIRED" : "Token wygasł. Wyślij nowy email do resetu hasła."
 };
 
 export default ErrorMap;

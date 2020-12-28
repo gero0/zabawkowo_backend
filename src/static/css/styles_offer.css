@@ -1,10 +1,15 @@
+main{
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .offer-details {
   width: 75%;
   margin: 10px;
-  height: 200px;
+  min-height:220px;
   border-radius: 5px;
   display: flex;
-  background-color: var(--light_green);
+  background-color: var(--main_color);
 }
 
 .offer-details img{
@@ -18,9 +23,9 @@
 }
 
 .user-details{
-  background-color: var(--light_green);
-  height: 180px;
+  background-color: var(--main_color);
   margin: 10px;
+  min-height:200px;
   padding: 10px;
   border-radius: 5px;
 }
