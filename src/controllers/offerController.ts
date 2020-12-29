@@ -45,7 +45,11 @@ export const getOffers = async (req) => {
     query = query.andWhere("type.id IN (:...categories)", { categories });
   }
 
-  const offers = await query.getMany();
+  let offers = await query.getMany();
+
+  offers = offers.sort((a, b) => {
+    return a.created_at > b.created_at ? -1 : 1;
+  });
 
   return offers;
 };

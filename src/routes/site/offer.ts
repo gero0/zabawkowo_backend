@@ -7,12 +7,12 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const list_offers = await getOffers(req);
+  /*const list_offers = await getOffers(req);
   const list_sorted = list_offers.sort((a, b) => {
     return a.created_at > b.created_at ? -1 : 1;
   });
-  const categories = await ToyType.find();
-  res.render("index", { list_offers: list_sorted, categories });
+  const categories = await ToyType.find();*/
+  res.render("index");
 });
 
 router.get("/create", authenticateTokenGet, async (req, res) => {

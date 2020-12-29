@@ -12,28 +12,12 @@ block content
       div(id="searchContainer")
         input(id='search-text', type="text", placeholder="wyszukaj...")
         input(id='search-button', type="button", value="Szukaj...")
-      ul
-        each category in categories
-          div(class='checkbox')
-            li
-              - var checkbox_id = 'checkbox-'+category.id
-              input(id=checkbox_id, class="category-checkbox" type="checkbox")
-              label #{category.name}
+      ul(id="categoriesList")
+        
       p Cena:
       div(class="priceContainer")
         input(id="min-price", type="number", placeholder="min")
         input(id="max-price", type="number", placeholder="max")
     section(id='offers')
-      each offer in list_offers
-        - var img = offer.photo;
-        - var url = '/offer/' + offer.id;
-        div(class='offer')
-          a(href=url)
-            img(src=img)
-          div(class='offer-desc')
-            a(href=url)
-              h1 #{offer.name}
-            p #{offer.description}
-          div(class='offer-right-section')
-            p Cena: #{offer.price}zł
+      
 
