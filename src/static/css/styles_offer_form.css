@@ -1,8 +1,8 @@
-main{
+main {
   display: block;
 }
 
-#form-container{
+#form-container {
   border-radius: 5px;
   margin: 0 auto;
   margin-top: 20px;
@@ -12,60 +12,63 @@ main{
   background-color: var(--main_color);
 }
 
-#create-offer-h1{
+#create-offer-h1 {
   display: block;
   margin: 0 auto;
   align: center;
   text-align: center;
 }
 
-#form-img{
+#form-img {
   width: 33%;
   margin: 20px;
 }
 
-#form-img img{
+#form-img img {
   width: 250px;
   height: 250px;
-  border: 1px solid
+  border: 1px solid;
 }
 
-#form-img input{
-  margin-top:20px;
+#form-img input {
+  margin-top: 20px;
   width: 250px;
   height: 40px;
 }
 
-#form-fields{
+#form-fields {
   padding: 20px;
   flex-grow: 1;
 }
 
-#form-fields input, textarea, select, button {
+#form-fields input,
+textarea,
+select,
+button {
   display: block;
-  width : 100%;
-  min-height:30px;
+  width: 100%;
+  min-height: 30px;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  margin-top:10px;
-  margin-bottom:20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-#form-fields textarea{
-  min-height:100px;
+#form-fields textarea {
+  min-height: 100px;
 }
 
-.checkbox-div{
+.checkbox-div {
   display: flex;
   width: 150px;
 }
 
-.checkbox-div label{
+.checkbox-div label {
   display: block;
 }
 
-#form-fields .category-checkbox{
+#form-fields .category-checkbox {
   width: 30px;
   display: block;
   margin: 0;

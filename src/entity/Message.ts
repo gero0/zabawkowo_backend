@@ -1,8 +1,8 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 enum MessageStatus {
-  Seen = 'Seen',
-  Not_seen = 'Not_seen',
+  Seen = "Seen",
+  Not_seen = "Not_seen",
 }
 
 @Entity()

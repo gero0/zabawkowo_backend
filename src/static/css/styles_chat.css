@@ -1,4 +1,4 @@
-#chat-window{
+#chat-window {
   max-width: 600px;
   width: 80%;
   margin: auto;
@@ -7,7 +7,7 @@
   padding: 10px;
 }
 
-#message-input{
+#message-input {
   width: 85%;
   height: 100px;
   max-width: 620px;
@@ -16,20 +16,20 @@
   border: 1px solid;
 }
 
-#message-input .text-input{
+#message-input .text-input {
   width: 100%;
   height: 80%;
   word-break: break-all;
 }
 
-.message-box{
+.message-box {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
 }
 
-.message{
+.message {
   align-self: flex-start;
   color: white;
   padding: 10px;
@@ -38,24 +38,24 @@
   border-radius: 5px;
 }
 
-.message-right{
+.message-right {
   align-self: flex-end;
   margin-left: auto;
   background-color: rebeccapurple;
 }
 
-#send-button{
+#send-button {
   margin: 0;
   display: block;
   padding: 5px;
   width: 98%;
   background-color: blue;
   text-align: center;
-  color:white;
+  color: white;
   border-radius: 5px;
 }
 
-#chat-title{
+#chat-title {
   text-align: center;
   border-bottom: 1px solid;
 }

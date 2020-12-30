@@ -1,14 +1,19 @@
-import { BaseEntity, Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity()
-export class ResetRequest extends BaseEntity{
-
-  @PrimaryColumn({type: 'varchar'})
+export class ResetRequest extends BaseEntity {
+  @PrimaryColumn({ type: "varchar" })
   uuid: string;
 
-  @Column({type: 'varchar', nullable: false})
+  @Column({ type: "varchar", nullable: false })
   expiration_date: Date;
 
-  @Column({type: 'int', nullable:false})
+  @Column({ type: "int", nullable: false })
   user_id: number;
 }

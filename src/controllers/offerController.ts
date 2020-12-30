@@ -81,7 +81,6 @@ export const user_offers = async (req, res) => {
 };
 
 export const offer_details = async (req, res) => {
-
   const offer = await getConnection()
     .createQueryBuilder()
     .select(["toy", "user.username", "user.email", "user.phone_number"])
@@ -109,47 +108,58 @@ export const offer_delete = async (req, res) => {
   res.status(200).json({ status: "OK" });
 };
 
+const offer_validate = async (req, res) => {
+  const data = req.body;
+
+  if (!data.name || data.name.length < 2) {
+    res.status(400).json({ status: "ERR_OFFER_NAME" });
+    return false;
+  }
+
+  if (!data.description || data.description == "") {
+    res.status(400).json({ status: "ERR_OFFER_DESC" });
+    return false;
+  }
+
+  if (!data.price) {
+    res.status(400).json({ status: "ERR_OFFER_PRICE" });
+    return false;
+  }
+
+  //replace comma with dot
+  let price = data.price.replace(",", ".");
+
+  //Forgive me future me, for i had to use regex
+  // ^ - must be beginning of string
+  // $ - must be end of string
+  // + one or more
+  // () - blocks
+  // \. - literal dot
+  // [] - character from range
+  // ? 0 or 1
+  let re = new RegExp(`^([0-9])+(\.([0-9][0-9]))?$`);
+
+  //test if this is a valid price
+  if (!re.test(price)) {
+    res.status(400).json({ status: "ERR_OFFER_PRICE" });
+    return false;
+  }
+
+  return true;
+};
+
 export const offer_create = async (req, res) => {
   try {
     const loggedUser = await User.findOne({
       where: { username: req.auth_data.username },
     });
 
+    if (!offer_validate(req, res)) {
+      return;
+    }
+
     const data = req.body;
-
-    if (!data.name || data.name.length < 2) {
-      res.status(400).json({ status: "ERR_OFFER_NAME" });
-      return;
-    }
-
-    if (!data.description || data.description == "") {
-      res.status(400).json({ status: "ERR_OFFER_DESC" });
-      return;
-    }
-
-    if (!data.price) {
-      res.status(400).json({ status: "ERR_OFFER_PRICE" });
-      return;
-    }
-
-    //replace comma with dot
-    let price = data.price.replace(",", ".");
-
-    //Forgive me future me, for i had to use regex
-    // ^ - must be beginning of string
-    // $ - must be end of string
-    // + one or more
-    // () - blocks
-    // \. - literal dot
-    // [] - character from range
-    // ? 0 or 1
-    let re = new RegExp(`^([0-9])+(\.([0-9][0-9]))?$`);
-
-    //test if this is a valid price
-    if (!re.test(price)) {
-      res.status(400).json({ status: "ERR_OFFER_PRICE" });
-      return;
-    }
+    const price = data.price.replace(",", ".");
 
     const categoryIds = data.categories.map((categoryId) =>
       parseInt(categoryId)
@@ -175,6 +185,57 @@ export const offer_create = async (req, res) => {
 
     newOffer = await newOffer.save();
     res.status(201).json({ status: "OK", offer_id: newOffer.id });
+  } catch {
+    res.status(500).json({ status: "ERR_ADDING_OFFER" });
+    return;
+  }
+};
+
+export const offer_edit = async (req, res) => {
+  try {
+    const loggedUser = await User.findOne({
+      where: { username: req.auth_data.username },
+    });
+
+    let offer = await Toy.findOne({
+      where: { id: req.params.id, user_id: loggedUser },
+    });
+
+    if (!offer) {
+      res.status(403).json({ status: "ERR_NOT_AUTHORIZED" });
+      return;
+    }
+
+    if (!offer_validate(req, res)) {
+      //offer validate sends response
+      return;
+    }
+
+    const data = req.body;
+    const price = data.price.replace(",", ".");
+
+    const categoryIds = data.categories.map((categoryId) =>
+      parseInt(categoryId)
+    );
+
+    let categories =
+      categoryIds.length !== 0
+        ? await getConnection()
+            .createQueryBuilder(ToyType, "type")
+            .where("type.id IN (:...categoryIds)", { categoryIds })
+            .getMany()
+        : [];
+
+    offer.name = data.name;
+    offer.description = data.description;
+    offer.price = price;
+    offer.age = data.age ? data.age : null;
+    //offer.status = data.status; ?
+    offer.types = categories;
+
+    offer = await offer.save();
+
+    res.status(201).json({ status: "OK", offer_id: offer.id });
   } catch {
     res.status(500).json({ status: "ERR_ADDING_OFFER" });
     return;

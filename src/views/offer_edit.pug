@@ -1,0 +1,48 @@
+extends layout
+
+block includes
+  link(rel='stylesheet' href='/css/styles_offer_form.css')
+  script(src='/js/helpers.js', type='module', defer)
+  script(src='/js/offer_edit.js',type='module', defer)
+
+block title
+  title Dodaj ofertę...
+
+block content
+  main
+    -var img = offer.photo;
+    -var offerName = offer.name;
+    -var desc = offer.description;
+    -var price = offer.price;
+    -var age = offer.age;
+
+    h1(id="create-offer-h1") Edytuj ofertę...
+    div(id="form-container")
+      div(id="form-img")
+        img(id="img-preview", src=img)
+        input(id="file-selector", type="file", value="Załaduj...", accept=".png,.jpg", name='file')
+      div(id="form-fields")
+        form(id="offerForm")
+          label(for="name", value="Nazwa") Nazwa:
+          input(id="name", type="text", value=offerName, name="name")
+          label(for="description", value="Opis") Opis:
+          textarea(id="description", value=desc, style="resize: none", name="description")
+            | #{offer.description}
+          label(for="price", value="Cena") Cena (zł):
+          input(id="price", type="text", value=price, name='price') 
+          label(for="age", value="Wiek zabawki") Wiek zabawki (opcjonalne):
+          input(id="age", type="number", value=age, name='age') 
+          p Kategorie (opcjonalnie)
+          ul
+            - var offerCategories = [];
+            - categories.forEach((category)=> { for(offerCat of offer.types) { if(offerCat.id == category.id) offerCategories.push(category);} })
+            
+            each category in categories
+              -var contains = offerCategories.indexOf(category) !== -1;
+              li
+                div(class="checkbox-div")
+                  - var checkbox_id = 'checkbox-'+category.id
+                  label #{category.name}
+                  input(id=checkbox_id class="category-checkbox" type="checkbox" checked=contains)
+          input(id="form-submit", type="button", value="Wyślij...")
+          div(id="form-error")

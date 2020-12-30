@@ -1,35 +1,39 @@
-main{
+main {
   margin-top: 20px;
   align-items: stretch;
 }
 
-#login-form-box{
+#login-form-box {
   background-color: var(--main_color);
   flex: 1;
   padding: 20px;
   margin-left: 20px;
 }
 
-#register-form-box{
+#register-form-box {
   background-color: rgb(213, 170, 255);
   flex: 1;
   padding: 20px;
   margin-right: 20px;
 }
 
-input, label, textarea, select, button {
+input,
+label,
+textarea,
+select,
+button {
   display: block;
-  width : 50%;
-  min-height:30px;
+  width: 50%;
+  min-height: 30px;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  margin-top:10px;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
 
-input[type='button']{
-  width : 20%;
+input[type="button"] {
+  width: 20%;
   margin-right: 25%;
 }

@@ -1,4 +1,4 @@
-main{
+main {
   justify-content: center;
   align-items: flex-start;
 }
@@ -6,26 +6,26 @@ main{
 .offer-details {
   width: 75%;
   margin: 10px;
-  min-height:220px;
+  min-height: 220px;
   border-radius: 5px;
   display: flex;
   background-color: var(--main_color);
 }
 
-.offer-details img{
+.offer-details img {
   margin: 20px;
   border: 1px solid;
   height: 180px;
-  max-height: 150px; 
-  max-width: 150px; 
-  min-height: 150px; 
-  min-width: 150px; 
+  max-height: 150px;
+  max-width: 150px;
+  min-height: 150px;
+  min-width: 150px;
 }
 
-.user-details{
+.user-details {
   background-color: var(--main_color);
   margin: 10px;
-  min-height:200px;
+  min-height: 200px;
   padding: 10px;
   border-radius: 5px;
 }

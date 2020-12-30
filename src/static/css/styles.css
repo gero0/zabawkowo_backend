@@ -6,11 +6,13 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-h1, h2, h3{
+h1,
+h2,
+h3 {
   font-family: cursive;
 }
 
-h3{
+h3 {
   margin: 0;
 }
 
@@ -20,7 +22,7 @@ a {
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   text-decoration: underline;
 }
 
@@ -31,7 +33,7 @@ header {
   background-color: var(--header-color);
 }
 
-.errorText{
+.errorText {
   color: red;
 }
 
@@ -45,12 +47,12 @@ header {
   align: right;
 }
 
-.header-button{
+.header-button {
   display: block;
-  padding:5px;
+  padding: 5px;
   background-color: var(--main_color);
-  margin-top:10px;
-  border-radius:5px;
+  margin-top: 10px;
+  border-radius: 5px;
 }
 
 main {
@@ -77,66 +79,65 @@ aside {
   margin-top: 20px;
   margin-right: 10px;
   min-height: 150px;
-  max-height: 200px;; 
+  max-height: 200px;
   border-radius: 5px;
   display: flex;
   background-color: var(--main_color);
 }
 
-.offer img{
+.offer img {
   margin: 20px;
   border: 1px solid;
-  max-height: 150px; 
-  max-width: 150px; 
-  min-height: 150px; 
-  min-width: 150px; 
+  max-height: 150px;
+  max-width: 150px;
+  min-height: 150px;
+  min-width: 150px;
 }
 
-.offer-desc{
+.offer-desc {
   display: inline;
   margin-right: 40px;
   overflow-wrap: anywhere;
 }
 
-.offer-right-section{
+.offer-right-section {
   margin-left: auto;
   margin-right: 20px;
-  min-width:100px;
+  min-width: 100px;
 }
 
-.checkbox{
+.checkbox {
   display: flex;
   margin-bottom: 10px;
 }
 
-.priceContainer{
+.priceContainer {
   display: flex;
   background-color: var(--main_color);
 }
 
-#searchContainer{
+#searchContainer {
   display: flex;
   height: 30px;
 }
 
-#searchContainer input[type=text]{
+#searchContainer input[type="text"] {
   width: 75%;
   padding: 2px;
 }
 
-
-#send-message-button{
+#send-message-button {
   margin: 0;
   display: block;
   padding: 5px;
   width: 95%;
   background-color: blue;
   text-align: center;
-  color:white;
+  color: white;
   border-radius: 5px;
 }
 
-input[type=number] {
+input[type="number"] {
   appearance: textfield;
 }
 
@@ -149,7 +150,7 @@ footer {
 #form-container {
   border-radius: 5px;
   background-color: var(--main_color);
-  padding:20px;
+  padding: 20px;
   max-width: 30%;
   margin: 20 auto;
 }

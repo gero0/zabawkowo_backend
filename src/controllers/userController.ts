@@ -11,26 +11,26 @@ import { sendEmail } from "../sendEmail";
 export const send_password_reset = async (req) => {
   const email = req.body.email;
 
-  if(!email){
+  if (!email) {
     return;
   }
 
   const user = await User.findOne({ where: { email } });
 
-  if(!user){
+  if (!user) {
     return;
   }
 
   const token = v4();
 
-  let date = new Date(); 
-  date.setDate(date.getDate()+1);
+  let date = new Date();
+  date.setDate(date.getDate() + 1);
 
   const request = {
     uuid: token,
     expiration_date: date,
-    user_id: user.id
-  }
+    user_id: user.id,
+  };
 
   const newReq = ResetRequest.create(request);
   await newReq.save();
@@ -40,10 +40,9 @@ export const send_password_reset = async (req) => {
     //TODO switch to prod url
     `<a href="http://localhost:8000/user/change-password/${token}">Reset password</a>`
   );
+};
 
-}
-
-export const change_password = async(req, res) => {
+export const change_password = async (req, res) => {
   const newPassword = req.body.password;
   const token = req.params.token;
 
@@ -57,12 +56,12 @@ export const change_password = async(req, res) => {
   const resetRequest = await ResetRequest.findOne(token);
   const currentDate = new Date();
 
-  if(!resetRequest){
+  if (!resetRequest) {
     res.status(401).json({ status: "ERR_TOKEN_EXPIRED" });
     return;
   }
 
-  if(resetRequest.expiration_date <= currentDate){
+  if (resetRequest.expiration_date <= currentDate) {
     resetRequest.remove();
     res.status(401).json({ status: "ERR_TOKEN_EXPIRED" });
     return;
@@ -79,7 +78,7 @@ export const change_password = async(req, res) => {
   resetRequest.remove();
 
   res.status(201).json({ status: "OK" });
-}
+};
 
 //</Helpers>
 
