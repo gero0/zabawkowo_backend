@@ -1,20 +1,27 @@
 main {
   margin-top: 20px;
+}
+
+#form-container{
+  height: 100vh;
+  display: flex;
   align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  max-width:1200px;
+  padding: 0;
 }
 
 #login-form-box {
   background-color: var(--main_color);
   flex: 1;
-  padding: 20px;
-  margin-left: 20px;
+  padding:20px;
 }
 
 #register-form-box {
   background-color: rgb(213, 170, 255);
   flex: 1;
   padding: 20px;
-  margin-right: 20px;
 }
 
 input,

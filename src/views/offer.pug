@@ -2,6 +2,8 @@ extends layout
 
 block includes
   link(rel='stylesheet' href='/css/styles_offer.css')
+  - if(auth_data && auth_data.username == user.username)
+      script(src='/js/offer_delete.js',type='module', defer)
 
 block title
   title #{offer.name}
@@ -24,5 +26,12 @@ block content
       p użytkownik: #{user.username}
       p numer telefonu: #{user.phone_number}
       p email: #{user.email}
-      a(href='/')
-        p(id="send-message-button") Wyślij wiadomość...
+      - if(auth_data && auth_data.username == user.username)
+          - var editUrl = '/offer/' + offer.id + '/edit';
+          a(href=editUrl)
+            p Edytuj...
+          a(href='javascript:void(0);')
+            p(id="offer-delete-button") Usuń...
+      - else
+          a(href='/')
+            p(id="send-message-button") Wyślij wiadomość...

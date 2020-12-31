@@ -42,6 +42,9 @@ header {
 }
 
 #user-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-left: auto;
   margin-right: 20px;
   align: right;
@@ -49,9 +52,9 @@ header {
 
 .header-button {
   display: block;
-  padding: 5px;
-  background-color: var(--main_color);
+  padding: 10px;
   margin-top: 10px;
+  background-color: var(--main_color);
   border-radius: 5px;
 }
 
@@ -124,17 +127,6 @@ aside {
 #searchContainer input[type="text"] {
   width: 75%;
   padding: 2px;
-}
-
-#send-message-button {
-  margin: 0;
-  display: block;
-  padding: 5px;
-  width: 95%;
-  background-color: blue;
-  text-align: center;
-  color: white;
-  border-radius: 5px;
 }
 
 input[type="number"] {

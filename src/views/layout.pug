@@ -12,10 +12,13 @@ html
         a(href='/')
           img(src="/images/logo.png")
       div(id='user-data')
-        p Witaj, 
-          a(href='/user') theSausage 
-          a(id="logout-button" class='header-button', onclick="logout()" href="javascript:void(0);") Wyloguj
-          a(class='header-button', href='/offer/create') Utwórz ofertę...
-          a(class='header-button', href='/offer/myoffers') Moje oferty...
+        - if(auth_data && auth_data.username)
+          p Witaj, 
+            a(href='/user') #{auth_data.username} 
+            a(id="logout-button" class='header-button', onclick="logout()" href="javascript:void(0);") Wyloguj
+            a(class='header-button', href='/offer/create') Utwórz ofertę...
+            a(class='header-button', href='/offer/myoffers') Moje oferty...
+        -else
+          a(class='header-button' href='/login') Zarejestruj / Zaloguj
     block content
     footer

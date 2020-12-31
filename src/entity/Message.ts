@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Chat } from "./Chat";
 
 enum MessageStatus {
   Seen = "Seen",
@@ -10,7 +11,7 @@ export class Message extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "int", nullable: false })
+  @ManyToOne(() => Chat, (chat) => chat.messages)
   chat_id: number;
 
   @Column({ type: "int", nullable: false })

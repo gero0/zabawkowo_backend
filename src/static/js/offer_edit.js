@@ -11,7 +11,6 @@ async function submit_offer(event) {
     submit_button.disabled = false;
   }, 2000);
 
-  console.log(localStorage.getItem("token"));
   const headers = {
     "content-type": "application/json",
     authorization: document.cookie,

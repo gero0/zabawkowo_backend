@@ -11,7 +11,7 @@ router.get("/", authenticateTokenGet, async (req, res) => {
     relations: ["addresses"],
   });
 
-  res.render("user_page", { user: loggedUser });
+  res.render("user_page", { user: loggedUser, auth_data: req.auth_data });
 });
 
 router.get("/forgot-password", async (req, res) => {

@@ -29,3 +29,18 @@ main {
   padding: 10px;
   border-radius: 5px;
 }
+
+.user-details a {
+  margin: 10 0;
+  display: block;
+  padding: 5px;
+  width: 95%;
+  background-color: blue;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+}
+
+.user-details a p {
+  margin: 0;
+}
