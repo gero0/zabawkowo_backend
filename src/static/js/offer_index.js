@@ -98,7 +98,7 @@ async function fetchOffers() {
     html += `
       <div class="offer">
         <a href="/offer/${offer_id}">
-          <img src="${offer_img}">
+          <img class='offer-image' src="${offer_img}">
         </a>
         <div class="offer-desc">
           <a href="/offer/${offer_id}">

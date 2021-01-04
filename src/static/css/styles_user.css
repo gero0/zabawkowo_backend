@@ -2,7 +2,7 @@ main {
   padding: 20px;
   border-radius: 5px;
   display: block;
-  max-width: 50%;
+  max-width: 1000px;
   align-self: center;
   margin: 0 auto;
   margin-top: 20px;
@@ -29,6 +29,7 @@ select,
 button {
   display: block;
   width: 50%;
+  max-width: 300px;
   min-height: 30px;
   padding: 0;
   margin: 0;

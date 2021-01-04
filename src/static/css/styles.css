@@ -1,24 +1,20 @@
 body {
   font-family: arial, sans-serif;
   margin: 0;
-  --main_color: rgb(128, 243, 128);
-  --header-color: rgb(119, 167, 255);
+  --main_color: #85e418;
+  --header-color: #0074E1;
   background-color: rgb(255, 255, 255);
 }
 
 h1,
 h2,
 h3 {
-  font-family: cursive;
-}
-
-h3 {
-  margin: 0;
+  /*font-family: cursive;*/
 }
 
 a {
+  color:black;
   margin: 0;
-  color: black;
   text-decoration: none;
 }
 
@@ -26,36 +22,17 @@ a:hover {
   text-decoration: underline;
 }
 
+input[type="number"] {
+  appearance: textfield;
+  width: 50%;
+}
+
 header {
+  color:rgb(255, 255, 255);
   display: flex;
   margin: 0 auto;
   padding: 0;
   background-color: var(--header-color);
-}
-
-.errorText {
-  color: red;
-}
-
-#logo {
-  padding: 20;
-}
-
-#user-data {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: 20px;
-  align: right;
-}
-
-.header-button {
-  display: block;
-  padding: 10px;
-  margin-top: 10px;
-  background-color: var(--main_color);
-  border-radius: 5px;
 }
 
 main {
@@ -70,19 +47,69 @@ aside {
   border-radius: 5px;
   margin: 20px;
   padding: 20px;
-  width: 400px;
+  width: 300px;
   background-color: var(--main_color);
 }
 
-#offers {
+footer {
+  margin-top: 20px;
+  height: 100px;
+  background-color: var(--header-color);
+}
+
+#offers{
   width: 100%;
+}
+
+#logo {
+  padding: 20;
+}
+
+#user-data {
+  margin-left: auto;
+  margin-right: 20px;
+  align: right;
+  height: 200px;
+}
+
+#user-buttons{
+  display: flex;
+  flex-flow: column wrap-reverse;
+  height: 100px;
+  justify-content: center;
+}
+
+
+
+#searchContainer{
+  display: flex;
+  justify-content: space-around;
+}
+
+#search-text, #search-button{
+  height: 30px;
+}
+
+.errorText {
+  color: red;
+}
+
+.username{
+  color: white;
+}
+
+.header-button {
+  display: block;
+  padding: 10px;
+  margin: 5px;
+  background-color: var(--main_color);
+  border-radius: 20px;
 }
 
 .offer {
   margin-top: 20px;
   margin-right: 10px;
   min-height: 150px;
-  max-height: 200px;
   border-radius: 5px;
   display: flex;
   background-color: var(--main_color);
@@ -95,6 +122,7 @@ aside {
   max-width: 150px;
   min-height: 150px;
   min-width: 150px;
+  border-radius: 10%;
 }
 
 .offer-desc {
@@ -110,39 +138,5 @@ aside {
 }
 
 .checkbox {
-  display: flex;
   margin-bottom: 10px;
-}
-
-.priceContainer {
-  display: flex;
-  background-color: var(--main_color);
-}
-
-#searchContainer {
-  display: flex;
-  height: 30px;
-}
-
-#searchContainer input[type="text"] {
-  width: 75%;
-  padding: 2px;
-}
-
-input[type="number"] {
-  appearance: textfield;
-}
-
-footer {
-  margin-top: 20px;
-  height: 100px;
-  background-color: var(--header-color);
-}
-
-#form-container {
-  border-radius: 5px;
-  background-color: var(--main_color);
-  padding: 20px;
-  max-width: 30%;
-  margin: 20 auto;
 }

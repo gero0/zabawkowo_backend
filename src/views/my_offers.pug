@@ -4,9 +4,8 @@ block title
   title= 'Moje oferty'
 
 block content
-  main
-    aside
-      h1 Moje oferty
+  main(style='display: block; max-width: 1200px; margin: 20 auto')
+    h1(style='text-align: center;') Moje oferty...
     section(id='offers')
       each offer in list_offers
         - var img = offer.photo;

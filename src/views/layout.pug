@@ -14,12 +14,14 @@ html
       div(id='user-data')
         - if(auth_data && auth_data.username)
           p Witaj, 
-            a(href='/user') #{auth_data.username} 
+            a(class='username' href='/user') #{auth_data.username} 
+          div(id='user-buttons')
             a(id="logout-button" class='header-button', onclick="logout()" href="javascript:void(0);") Wyloguj
             a(class='header-button', href='/offer/create') Utwórz ofertę...
             a(class='header-button', href='/offer/myoffers') Moje oferty...
             a(class='header-button', href='/chat') Wiadomości...
         -else
-          a(class='header-button' href='/login') Zarejestruj / Zaloguj
+          div(id='user-buttons')
+            a(class='header-button' href='/login') Zarejestruj / Zaloguj
     block content
     footer
