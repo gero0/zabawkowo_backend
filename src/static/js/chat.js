@@ -2,7 +2,7 @@ let chatWindow;
 let chatId = 0;
 let my_data = {};
 let recipient_data = {};
-let lastTimestamp = 0;
+let lastTimestamp = "";
 let messageHTML = "";
 
 async function fetchAllMessages() {
@@ -15,10 +15,6 @@ async function fetchAllMessages() {
   });
 
   const json = await response.json();
-
-  const date = new Date();
-
-  lastTimestamp = date.toISOString();
 
   return json;
 }
@@ -35,12 +31,7 @@ async function update() {
     }
   );
 
-  const date = new Date();
-
-  lastTimestamp = date.toISOString();
-
   const json = await response.json();
-
   return json;
 }
 
@@ -55,6 +46,7 @@ function displayMessages(json) {
       msgClass = "message";
     }
     messageHTML += `<div class='message-box'><div class='${msgClass}'>${message.text}</div></div>`;
+    lastTimestamp = message.send_date;
   }
 
   chatWindow.innerHTML = messageHTML;
@@ -62,10 +54,17 @@ function displayMessages(json) {
 
 async function sendMessage() {
   const textArea = document.getElementById("message-input-ta");
-
+  
   if (textArea.value == "") {
     return;
   }
+
+  const date = new Date();
+  const timestamp = date.toISOString();
+  
+  const text = textArea.value;
+
+  textArea.value = "";
 
   const response = await fetch(`/api/chat/${chatId}/send`, {
     method: "POST",
@@ -74,22 +73,17 @@ async function sendMessage() {
       authorization: document.cookie,
     },
     body: JSON.stringify({
-      content: textArea.value,
-      timestamp: lastTimestamp,
+      content: text,
+      timestamp: timestamp,
     }),
   });
-
+  
   let json = await response.json();
-
+  
   if (json.status !== "OK") {
     console.log(json.status);
   }
 
-  textArea.value = "";
-
-  json = await update();
-
-  displayMessages(json);
 }
 
 window.onload = async function () {
@@ -112,7 +106,7 @@ window.onload = async function () {
   setInterval(async function () {
     const json = await update();
     displayMessages(json);
-  }, 6000);
+  }, 1000);
 
   const sendButton = document.getElementById("send-button");
   sendButton.addEventListener("click", sendMessage);

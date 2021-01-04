@@ -130,7 +130,7 @@ export const chat_update = async (req, res) => {
 
   messages.forEach((message) => {
     const send_date = new Date(message.send_date);
-    if (send_date.getTime() >= timestamp.getTime()) {
+    if (send_date.getTime() > timestamp.getTime()) {
       newMessages.push(message);
     }
   });
