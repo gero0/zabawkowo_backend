@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Address } from "./Address";
+import { Chat } from "./Chat";
 import { Toy } from "./Toy";
 
 @Entity()
@@ -43,4 +44,5 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Address, (address) => address.user_id)
   addresses: Address[];
+
 }

@@ -20,7 +20,7 @@ export class Message extends BaseEntity {
   @Column({ type: "varchar", nullable: false })
   text: string;
 
-  @Column({ type: "date", nullable: false })
+  @Column({ type: "timestamp", nullable: false })
   send_date: Date;
 
   @Column({ type: "enum", enum: MessageStatus, nullable: false })

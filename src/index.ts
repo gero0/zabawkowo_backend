@@ -12,6 +12,7 @@ import chatRouter from "./routes/site/chat";
 
 import apiUserRouter from "./routes/api/user";
 import apiOfferRouter from "./routes/api/offer";
+import apiChatRouter from "./routes/api/chat";
 
 const cookieParser = require("cookie-parser");
 
@@ -60,6 +61,7 @@ app.use("/user", userRouter);
 //Routes for API
 app.use("/api/user", apiUserRouter);
 app.use("/api/offer", apiOfferRouter);
+app.use("/api/chat", apiChatRouter);
 
 app.listen(8000, () => {
   console.log("Server started at 8000");

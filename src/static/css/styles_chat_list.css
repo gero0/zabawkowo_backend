@@ -1,0 +1,14 @@
+main{
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+.chat-div{
+  background-color: var(--main_color);
+  width: 300px;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 5px;;
+}

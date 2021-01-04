@@ -200,7 +200,7 @@ export const create_user = async (req, res) => {
     // [] - character from range
     // ? 0 or 1
     let re = new RegExp("^(\\+[0-9][0-9])?([0-9]){9}$");
-
+    
     if (phoneNumber !== "" && !re.test(phoneNumber)) {
       res.status(400).json({ status: "ERR_PHONE_NUMBER" });
       return;

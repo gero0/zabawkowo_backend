@@ -13,7 +13,7 @@ export function authenticateToken(req, res, next) {
   if (token && token.startsWith("token=")) {
     token = token.substring(6);
   }
-  if (token == null || token == "")
+  if (token == null || token == "" || typeof(token) == undefined)
     return res.status(401).json({ status: "TOKEN_ERR" }); // if there isn't any token
 
   jwt.verify(token, TOKEN_SECRET as string, (err: any, data: any) => {
@@ -30,13 +30,14 @@ export function authenticateTokenGet(req, res, next) {
   if (token && token.startsWith("token=")) {
     token = token.substring(6);
   }
-  if (token == null || token == "") {
+  if (token == null || token == "" || typeof(token) == undefined) {
     //no token in auth header, try cookie
     token = req.cookies.token;
     if (token && token.startsWith("token=")) {
       token = token.substring(6);
     }
-    if (token == null || token == "") return res.status(401).redirect("/"); // if there isn't any token
+    if (token == null || token == "" || typeof(token) == undefined)
+      return res.status(401).redirect("/"); // if there isn't any token
   }
 
   jwt.verify(token, TOKEN_SECRET as string, (err: any, data: any) => {
@@ -49,19 +50,20 @@ export function authenticateTokenGet(req, res, next) {
 
 export function authenticateOptionalGet(req, res, next) {
   let token = req.headers["authorization"];
-
+  console.log(token);
   if (token && token.startsWith("token=")) {
     token = token.substring(6);
   }
-  if (token == null || token == "") {
+  if (token == null || token == "" || typeof(token) == undefined) {
     //no token in auth header, try cookie
     token = req.cookies.token;
     if (token && token.startsWith("token=")) {
       token = token.substring(6);
     }
-    if (token == null || token == "") {
+    if (token == null || token == "" || typeof(token) == undefined) {
       req.auth_data = null;
       next();
+      return;
     }
   }
 

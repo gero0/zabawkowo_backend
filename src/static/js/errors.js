@@ -31,6 +31,7 @@ const ErrorMap = {
     "Nie udało się utworzyć użytkownika. Astrolodzy szukają przyczyny w układzie planet",
   ERR_INCORRECT_CREDENTIALS: "Nieprawidłowy email lub hasło",
   ERR_TOKEN_EXPIRED: "Token wygasł. Wyślij nowy email do resetu hasła.",
+  ERR_CHAT_SELF: "Nie próbuj wysyłać wiadomości do siebie samego. Po co obciążać serwer? ;)"
 };
 
 export default ErrorMap;
