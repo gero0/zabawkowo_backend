@@ -33,7 +33,8 @@ export const validateAndFindChat = async (req, res) => {
         user_id_1: loggedUser.id,
         user_id_2: secondUser.id,
       }
-    );
+    )
+    .orderBy("message.send_date", "ASC");
 
   const chat = await query.getOne();
 
@@ -89,12 +90,14 @@ export const validateAndFindChatList = async (req, res) => {
     chatsWithAdditionalData.push(chat);
   }
 
-  return { chats: chatsWithAdditionalData, loggedUser };
+  return { chats: chatsWithAdditionalData, loggedUser};
 };
 
 export const chat_list = async (req, res) => {
   const result = await validateAndFindChatList(req, res);
-  res.status(200).json({ status: "OK", chats: result.chats });
+  res
+    .status(200)
+    .json({ status: "OK", chats: result.chats, my_id: result.loggedUser.id });
 };
 
 export const chat_full = async (req, res) => {

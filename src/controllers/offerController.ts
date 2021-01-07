@@ -83,7 +83,7 @@ export const user_offers = async (req, res) => {
 export const offer_details = async (req, res) => {
   const offer = await getConnection()
     .createQueryBuilder()
-    .select(["toy", "user.username", "user.email", "user.phone_number"])
+    .select(["toy", "user.id", "user.username", "user.email", "user.phone_number"])
     .from(Toy, "toy")
     .leftJoinAndSelect("toy.types", "type")
     .leftJoin("toy.user_id", "user")
