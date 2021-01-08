@@ -5,6 +5,7 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href='/css/styles.css')
     script(src='/js/logout.js')
+    script(src='/js/messageNotifications.js')
     block includes
   body
     header
@@ -19,7 +20,9 @@ html
             a(id="logout-button" class='header-button', onclick="logout()" href="javascript:void(0);") Wyloguj
             a(class='header-button', href='/offer/create') Utwórz ofertę...
             a(class='header-button', href='/offer/myoffers') Moje oferty...
-            a(class='header-button', href='/chat') Wiadomości...
+            a(id='messages-button', class='header-button', href='/chat') Wiadomości...
+            script(type="text/javascript") checkMessageNotifications();
+
         -else
           div(id='user-buttons')
             a(class='header-button' href='/login') Zarejestruj / Zaloguj

@@ -140,3 +140,25 @@ footer {
 .checkbox {
   margin-bottom: 10px;
 }
+
+.message-notification-circle {
+  display: inline-block;
+  color:white;
+  background-color: red;
+  padding: 2px;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  text-align: center;
+}
+
+.message-notification {
+  display: inline-block;
+  color:white;
+  background-color: red;
+  padding: 2px;
+  border-radius: 33%;
+  text-align: center;
+}
+
+

@@ -2,6 +2,7 @@ import { User } from "../entity/User";
 import { getConnection } from "typeorm";
 import { Chat } from "../entity/Chat";
 import { Message } from "../entity/Message";
+import e = require("express");
 
 export const validateAndFindChat = async (req, res) => {
   const loggedUser = await User.findOne({
@@ -90,7 +91,7 @@ export const validateAndFindChatList = async (req, res) => {
     chatsWithAdditionalData.push(chat);
   }
 
-  return { chats: chatsWithAdditionalData, loggedUser};
+  return { chats: chatsWithAdditionalData, loggedUser };
 };
 
 export const chat_list = async (req, res) => {
@@ -126,6 +127,8 @@ export const chat_full = async (req, res) => {
 
 export const chat_update = async (req, res) => {
   const result = await validateAndFindChat(req, res);
+  const chat = result.chat;
+  const loggedUser = result.loggedUser;
   const messages = result.chat.messages;
 
   const timestamp = new Date(req.query.timestamp);
@@ -137,6 +140,14 @@ export const chat_update = async (req, res) => {
       newMessages.push(message);
     }
   });
+
+  if (loggedUser.id === chat.user_id_1) {
+    chat.user_notification_1 = false;
+  } else {
+    chat.user_notification_2 = false;
+  }
+
+  chat.save();
 
   res.status(200).json({ status: "OK", chat: { messages: newMessages } });
 };
@@ -152,6 +163,14 @@ export const chat_send = async (req, res) => {
     res.status(400).json({ status: "ERR_MESSAGE_INVALID" });
   }
 
+  if (loggedUser.id === chat.user_id_1) {
+    chat.user_notification_2 = true;
+  } else {
+    chat.user_notification_1 = true;
+  }
+
+  chat.save();
+
   const msg = await Message.create({
     chat_id: chat.id,
     sender_id: loggedUser.id,
@@ -161,4 +180,24 @@ export const chat_send = async (req, res) => {
   }).save();
 
   res.status(200).json({ status: "OK" });
+};
+
+export const chat_notifications = async (req, res) => {
+  const loggedUser = await User.findOne({
+    where: { username: req.auth_data.username },
+  });
+
+  if (!loggedUser) {
+    res.status(403).json({ status: "ERR_NOT_AUTHORIZED" });
+    return;
+  }
+
+  const result = await getConnection().query(
+    `SELECT COUNT (*) FROM Chat
+    WHERE (user_id_1 = $1 AND user_notification_1 = true)
+    OR (user_id_2 = $1 AND user_notification_2 = true)`,
+    [loggedUser.id]
+  );
+
+  res.status(200).json({ status: "OK", count: result[0].count });
 };

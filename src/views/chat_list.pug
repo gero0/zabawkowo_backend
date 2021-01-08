@@ -9,8 +9,8 @@ block includes
 block content
   main
     each chat in chats
-      - var urlId = chat.user_id_1 == loggedUser.id ? chat.user_id_2 : chat.user_id_1
-      - var url = '/chat/' + urlId;
+      - var otherUserId = chat.user_id_1 == loggedUser.id ? chat.user_id_2 : chat.user_id_1
+      - var url = '/chat/' + otherUserId;
       a(class='chat-a' href=url)
         div(class="chat-div")
           h2 #{chat.otherUsername}
@@ -19,4 +19,5 @@ block content
               p Ty: #{chat.lastMessage.text}
             - else
               p #{chat.otherUsername}: #{chat.lastMessage.text}
-  
+              - if( (chat.user_id_1 == loggedUser.id && chat.user_notification_1) || (chat.user_id_2 == loggedUser.id && chat.user_notification_2))
+                div(class='message-notification') Nowe

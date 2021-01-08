@@ -12,6 +12,12 @@ export class Chat extends BaseEntity {
   @Column({ type: "int", nullable: false })
   user_id_2: number;
 
+  @Column({ type: "boolean", nullable: false, default: false })
+  user_notification_1: boolean;
+
+  @Column({ type: "boolean", nullable: false, default: false })
+  user_notification_2: boolean;
+
   @OneToMany(() => Message, (message) => message.chat_id)
   messages: Message[];
 }
