@@ -20,6 +20,12 @@ main {
   padding: 10px;
   max-width: 100%;
   border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-button{
+  width: 60px;
 }
 
 input,

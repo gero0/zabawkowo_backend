@@ -19,9 +19,13 @@ block content
     div(class='addresses')
       each address in user.addresses
         div(class='address')
-          p Ulica: #{address.street_address}
-          p Miasto: #{address.city}
-          p Kod pocztowy: #{address.postal_code}
+          div
+            p Ulica: #{address.street_address}
+            p Miasto: #{address.city}
+            p Kod pocztowy: #{address.postal_code}
+          div
+            -var buttonId = "delete-button-" + address.id; 
+            button(id=buttonId, class='delete-button') Usuń
 
     h3 Dodaj adres...
     form(id='address-form')

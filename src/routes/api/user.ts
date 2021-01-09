@@ -12,6 +12,7 @@ router.post("/register", userController.create_user);
 router.post("/login", userController.login);
 router.post("/delete", authenticateToken, userController.delete_user);
 router.post("/add-address", authenticateToken, userController.add_address);
+router.post("/delete-address", authenticateToken, userController.delete_address);
 router.post("/forgot-password", userController.forgot_password);
 router.post("/change-password/:token", userController.change_password);
 

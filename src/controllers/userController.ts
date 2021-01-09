@@ -129,6 +129,24 @@ export const add_address = async (req, res) => {
   }
 };
 
+export const delete_address = async (req, res) => {
+  const loggedUser = await User.findOne({
+    where: { username: req.auth_data.username },
+  });
+
+  if (!loggedUser) {
+    res.status(404).json({ status: "ERR_USER_NOT_FOUND" });
+    return;
+  }
+
+  const result = await Address.delete({
+    id: req.body.id,
+    user_id: loggedUser.id,
+  });
+
+  res.status(200).json({ status: "OK" });
+};
+
 export const me = async (req, res) => {
   const loggedUser = await User.findOne({
     where: { username: req.auth_data.username },
@@ -200,7 +218,7 @@ export const create_user = async (req, res) => {
     // [] - character from range
     // ? 0 or 1
     let re = new RegExp("^(\\+[0-9][0-9])?([0-9]){9}$");
-    
+
     if (phoneNumber !== "" && !re.test(phoneNumber)) {
       res.status(400).json({ status: "ERR_PHONE_NUMBER" });
       return;

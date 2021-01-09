@@ -33,7 +33,29 @@ async function submit_form(event) {
   }
 }
 
+async function deleteAddress(event){
+  let addressId = this.id.substring(this.id.lastIndexOf('-')+1);
+  console.log(addressId);
+
+  const headers = {
+    "content-type": "application/json",
+    authorization: document.cookie,
+  };
+
+  const form_response = await postRequest(
+    "/api/user/delete-address",
+    headers,
+    {id: addressId}
+  );
+
+  window.location.href='/user';
+
+}
+
 window.onload = function () {
   const form_submit_btn = document.getElementById("submit-form");
   form_submit_btn.addEventListener("click", submit_form);
+
+  const buttons = document.querySelectorAll(".delete-button");
+  buttons.forEach((button) => button.addEventListener("click", deleteAddress));
 };
