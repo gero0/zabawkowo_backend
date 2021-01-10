@@ -1,9 +1,10 @@
 body {
-  font-family: arial, sans-serif;
+  //font-family: arial, sans-serif;
   margin: 0;
   --main_color: #85e418;
   --header-color: #0074E1;
-  background-color: rgb(255, 255, 255);
+  background-color: #EEE;
+  font-family: 'Lato', sans-serif;
 }
 
 h1,
@@ -44,7 +45,7 @@ main {
 }
 
 aside {
-  border-radius: 5px;
+  border-radius: 20px;
   margin: 20px;
   padding: 20px;
   width: 300px;
@@ -110,7 +111,7 @@ footer {
   margin-top: 20px;
   margin-right: 10px;
   min-height: 150px;
-  border-radius: 5px;
+  border-radius: 20px;
   display: flex;
   background-color: var(--main_color);
 }
@@ -159,6 +160,11 @@ footer {
   padding: 2px;
   border-radius: 33%;
   text-align: center;
+}
+
+#logo-img{
+  width: 150px;
+  height: 150px;
 }
 
 

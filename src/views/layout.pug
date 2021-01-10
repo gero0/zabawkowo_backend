@@ -4,6 +4,8 @@ html
     meta(charset= "utf-8")
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href='/css/styles.css')
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
     script(src='/js/logout.js')
     script(src='/js/messageNotifications.js')
     block includes
@@ -11,7 +13,7 @@ html
     header
       div(id='logo')
         a(href='/')
-          img(src="/images/logo.png")
+          img(id="logo-img" src="/images/zabawkowo_logo.png")
       div(id='user-data')
         - if(auth_data && auth_data.username)
           p Witaj, 

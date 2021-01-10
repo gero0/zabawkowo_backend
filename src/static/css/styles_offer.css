@@ -1,8 +1,9 @@
 .offer-details {
   width: 75%;
+  max-width: 1000px;
   margin: 10px;
   min-height: 220px;
-  border-radius: 5px;
+  border-radius: 20px;
   display: flex;
   background-color: var(--main_color);
 }
@@ -15,14 +16,16 @@
   max-width: 150px;
   min-height: 150px;
   min-width: 150px;
+  border-radius: 10%;
 }
 
 .user-details {
   background-color: var(--main_color);
   margin: 10px;
   min-height: 200px;
+  max-width: 250px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .user-details a {
@@ -33,7 +36,7 @@
   background-color: blue;
   text-align: center;
   color: white;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .user-details a p {

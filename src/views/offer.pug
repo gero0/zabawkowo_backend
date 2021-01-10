@@ -10,7 +10,7 @@ block title
 
 block content
   main
-    - var img = offer.photo;
+    - var img = offer.photo && offer.photo != "" ? offer.photo : "/images/nophoto.png";
     - var url = '/offer/' + offer.id;
     div(class='offer-details')
       img(class='offer-image' src=img)

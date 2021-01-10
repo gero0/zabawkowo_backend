@@ -90,7 +90,10 @@ async function fetchOffers() {
 
   for (let key in json) {
     const offer_id = json[key].id;
-    const offer_img = json[key].photo;
+    const offer_img =
+      json[key].photo && json[key].photo != ""
+        ? json[key].photo
+        : "/images/nophoto.png";
     const offer_name = json[key].name;
     const offer_desc = json[key].description;
     const offer_price = json[key].price;
