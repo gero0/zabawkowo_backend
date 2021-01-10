@@ -27,7 +27,7 @@ async function submit_login(event) {
   }
 
   document.cookie = `token=${form_response.token}`;
-  //TODO: perhaps change to user page?
+
   window.location.href = `/`;
 }
 

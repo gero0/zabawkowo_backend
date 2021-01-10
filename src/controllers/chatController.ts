@@ -176,7 +176,7 @@ export const chat_send = async (req, res) => {
     sender_id: loggedUser.id,
     text: data.content,
     send_date: data.timestamp,
-    message_status: "Seen", //TODO: implement this?
+    message_status: "Seen",
   }).save();
 
   res.status(200).json({ status: "OK" });
