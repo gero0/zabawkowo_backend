@@ -1,3 +1,5 @@
-# Awesome Project Build with TypeORM
+#zabawkowo backend
 
-backend for mobile app
+backend for mobile app i made for uni project.
+
+Uses Express, typescript, typeorm
