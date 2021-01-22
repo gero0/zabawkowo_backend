@@ -154,7 +154,9 @@ export const offer_create = async (req, res) => {
       where: { username: req.auth_data.username },
     });
 
-    if (!offer_validate(req, res)) {
+    const validate = await offer_validate(req, res);
+
+    if (!validate) {
       return;
     }
 
@@ -206,7 +208,9 @@ export const offer_edit = async (req, res) => {
       return;
     }
 
-    if (!offer_validate(req, res)) {
+    const validate = await offer_validate(req, res);
+
+    if (!validate) {
       //offer validate sends response
       return;
     }

@@ -41,7 +41,7 @@ export class Toy extends BaseEntity {
   @Column({ type: "enum", enum: Status, nullable: false })
   status: string;
 
-  @ManyToOne(() => User, (user) => user.toys, { nullable: false })
+  @ManyToOne(() => User, (user) => user.toys, { nullable: false, onDelete: 'CASCADE' })
   user_id: User;
 
   @ManyToMany(() => ToyType)
