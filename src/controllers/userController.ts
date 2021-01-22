@@ -48,7 +48,7 @@ export const change_password = async (req, res) => {
 
   console.log(newPassword);
 
-  if (!newPassword || newPassword.length < 8) {
+  if (!newPassword || newPassword.length < 8 || newPassword.length > 256) {
     res.status(400).json({ status: "ERR_PASSWD_LENGTH" });
     return;
   }
@@ -187,7 +187,7 @@ export const create_user = async (req, res) => {
       return;
     }
 
-    if (!data.password || data.password.length < 8) {
+    if (!data.password || data.password.length < 8 || data.password.length > 256) {
       res.status(400).json({ status: "ERR_PASSWD_LENGTH" });
       return;
     }
